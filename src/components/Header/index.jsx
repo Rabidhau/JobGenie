@@ -13,9 +13,9 @@ export const Header = () => {
       <div className="container max-w-[80vw] mx-auto">
         <div className="flex flex-col mx-auto">
           <div className="relative flex flex-wrap items-center justify-between w-full bg-white group py-7 shrink-0">
-            <div>
+            <a href={"/"}>
               <h3 className="font-bold text-xl">JobGenie</h3>
-            </div>
+            </a>
             <div className="items-center justify-between hidden gap-12 text-black md:flex">
               <a
                 className="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900"
@@ -43,12 +43,18 @@ export const Header = () => {
               </a>
             </div>
             <div className="items-center hidden gap-8 md:flex">
-              <button className="flex items-center text-sm font-normal text-gray-800 hover:text-gray-900 transition duration-300">
+              <a
+                href="/login"
+                className="flex items-center text-sm font-normal text-gray-800 hover:text-gray-900 transition duration-300"
+              >
                 Log In
-              </button>
-              <button className="flex items-center px-4 py-2 text-sm font-bold rounded-xl bg-purple-blue-100 text-purple-blue-600 hover:bg-purple-blue-600 hover:text-white transition duration-300">
+              </a>
+              <a
+                href="/sign-up"
+                className="flex items-center px-4 py-2 text-sm font-bold rounded-xl bg-purple-blue-100 text-purple-blue-600 hover:bg-purple-blue-600 hover:text-gray-400 transition duration-300"
+              >
                 Sign Up
-              </button>
+              </a>
             </div>
             <button onClick={toggleMenu} className="flex md:hidden">
               <svg
