@@ -1,8 +1,36 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-export const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+export const Login = ({onSignInSuccess}) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post('http://localhost:3000/login', {
+        email,
+        password
+      });
+
+      console.log(response.data); // Log the response to inspect
+
+      // If login successful, navigate to the desired route
+      if (response.status === 200) {
+        onSignInSuccess();
+        navigate('/'); // Navigate to the desired route
+      } else {
+        alert('Invalid credentials. Please try again.');
+      }
+
+    } catch (error) {
+      console.error(error);
+      alert('Error signing in. Please try again later.');
+    }
+  };
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -12,14 +40,9 @@ export const Login = () => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission logic here
-  };
-
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-900 py-12 px-4 mt-10 sm:px-6 lg:px-8">
-      <div className="max-w-lg w-full space-y-8 b p-16 rounded-lg shadow-lg border border-gray-300 bg-gray-50">
+    <div className="min-h-screen flex items-center justify-center bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-lg w-full space-y-8 p-16 rounded-lg shadow-lg border border-gray-300 bg-gray-50">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Sign in to your account
@@ -66,26 +89,12 @@ export const Login = () => {
               type="submit"
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
-              <span className="absolute left-0 inset-y-0 flex items-center pl-3">
-                <svg
-                  className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 2a8 8 0 100 16 8 8 0 000-16zM4 10a6 6 0 1112 0 6 6 0 01-12 0z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </span>
               Sign in
             </button>
           </div>
 
-          <div className="text-sm">
+          <div className="text-sm text-center">
+            <p className="text-gray-600">Don't have an account?</p>
             <a
               href="/sign-up"
               className="font-medium text-indigo-600 hover:text-indigo-500"
