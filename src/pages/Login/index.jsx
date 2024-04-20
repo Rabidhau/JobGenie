@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-export const Login = ({onSignInSuccess}) => {
+export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [message, setMessage] = useState(''); // Add a state for the message
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -20,24 +21,24 @@ export const Login = ({onSignInSuccess}) => {
 
       // If login successful, navigate to the desired route
       if (response.status === 200) {
-        onSignInSuccess();
-        navigate('/'); // Navigate to the desired route
+        navigate('/authentication'); // Navigate to the desired route
       } else {
-        alert('Invalid credentials. Please try again.');
+        setMessage('Invalid credentials. Please try again.'); // Set the error message
       }
-
     } catch (error) {
       console.error(error);
-      alert('Error signing in. Please try again later.');
+      setMessage('Error signing in. Please try again later.'); // Set the error message
     }
   };
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
+    setMessage(''); // Clear the message when the email input changes
   };
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
+    setMessage(''); // Clear the message when the password input changes
   };
 
   return (
@@ -82,8 +83,10 @@ export const Login = ({onSignInSuccess}) => {
                 onChange={handlePasswordChange}
               />
             </div>
+            {message && (
+              <div className="text-red-500 text-sm">{message}</div>
+            )}
           </div>
-
           <div>
             <button
               type="submit"
@@ -92,7 +95,6 @@ export const Login = ({onSignInSuccess}) => {
               Sign in
             </button>
           </div>
-
           <div className="text-sm text-center">
             <p className="text-gray-600">Don't have an account?</p>
             <a
