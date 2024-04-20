@@ -7,6 +7,7 @@ export const SignUp = () => {
   const [selectedOption, setSelectedOption] = useState("placeholder");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -42,10 +43,11 @@ export const SignUp = () => {
         password,
         selectedOption
       });
-      alert(response.data); // Alert response from the server
+      // If successful, set the message state to display the success message
+      setMessage(response.data);
     } catch (error) {
-      console.error(error);
-      alert('Error signing up'); // Change alert message
+      // If there's an error, set the error state to display the error message
+      setError("Error signing up. Please try again later.");
     }
   };
 
@@ -61,6 +63,10 @@ export const SignUp = () => {
           {/* Error message */}
           {error && (
             <div className="text-red-500 text-sm text-center">{error}</div>
+          )}
+          {/* Success message */}
+          {message && (
+            <div className="text-green-500 text-sm text-center">{message}</div>
           )}
 
           <div className="rounded-md shadow-sm -space-y-px flex flex-col gap-4">

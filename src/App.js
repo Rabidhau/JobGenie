@@ -1,7 +1,7 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./App.css";
 import { Footer, Header } from "./components";
-import { Home, Login, SignUp } from "./pages";
+import { Home, Login, SignUp, Auth } from "./pages";
 import { useState } from 'react';
 function App() {
 
@@ -18,11 +18,15 @@ function App() {
     },
     {
       path: "/login",
-      element: <Login onSignInSuccess={handleSignInSuccess} />,
+      element: <Login  />,
     },
     {
       path: "/sign-up",
       element: <SignUp />,
+    },
+    {
+      path: "/authentication",
+      element: <Auth onSignInSuccess={handleSignInSuccess}/>,
     },
   ]);
 
