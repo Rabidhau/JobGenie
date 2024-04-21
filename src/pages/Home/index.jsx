@@ -1,5 +1,6 @@
 import { Accordion, JobCard } from "../../components";
 
+
 const items = [
   {
     title: "What benefits does the JobGenie offer",
@@ -57,14 +58,21 @@ export const Home = () => {
           </p>
 
           <div className="grid grid-cols-3 gap-5">
-            <JobCard />
-            <JobCard />
-            <JobCard />
-            <JobCard />
-            <JobCard />
-            <JobCard />
-            <JobCard />
-            <JobCard />
+          
+          <JobCard
+        logoSrc="https://example.com/your-logo1.png"
+        jobTitle="Graphic Designer / Video Editor Intern"
+        companyName="PADSHALA INCORPORATION PVT LTD"
+        jobDescription="We are looking for a motivated and detail-oriented SEO Content Writer Intern to assist our content team in creating compelling and search engine optimized content."
+        postedTime="2 hours ago"
+      />
+      <JobCard
+        logoSrc="https://example.com/your-logo1.png"
+        jobTitle="Graphic Designer / Video Editor Intern"
+        companyName="PADSHALA INCORPORATION PVT LTD"
+        jobDescription="We are looking for a motivated and detail-oriented SEO Content Writer Intern to assist our content team in creating compelling and search engine optimized content."
+        postedTime="2 hours ago"
+      />
           </div>
         </section>
 
