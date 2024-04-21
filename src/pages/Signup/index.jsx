@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 
 export const SignUp = () => {
+  // State variables to store form data
   const [email, setEmail] = useState("");
   const [fullName, setFullName] = useState("");
   const [selectedOption, setSelectedOption] = useState("placeholder");
   const [password, setPassword] = useState("");
-
+// Event handlers to update state variables
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
@@ -32,7 +33,7 @@ export const SignUp = () => {
       <div className="max-w-lg w-full space-y-8 b p-16 rounded-lg shadow-lg border border-gray-300 bg-gray-50">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Create New Account
+            Create a New Account
           </h2>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
@@ -140,7 +141,7 @@ export const SignUp = () => {
                   />
                 </svg>
               </span>
-              Sign in
+              Sign-in
             </button>
           </div>
 
