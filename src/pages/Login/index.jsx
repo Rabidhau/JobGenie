@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+  // State variables to store form data
 
 export const Login = () => {
   const [email, setEmail] = useState("");
