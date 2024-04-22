@@ -29,7 +29,7 @@ export const Home = () => {
       <div className="container mx-auto px-4">
         <section className="mb-20">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white text-center leading-tight mb-4">
-            Find Your Dream Home
+            Find Your Dream Job
           </h1>
           <p className="text-lg md:text-xl lg:text-2xl text-gray-300 mb-8 text-center">
             Explore thousands of properties across the globe
