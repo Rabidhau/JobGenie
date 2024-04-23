@@ -1,8 +1,6 @@
 import React from "react";
 
 export const Header = ({ isAuthenticated }) => {
-
-
   const toggleMenu = () => {
     const group = document.querySelector(".group");
     if (group) {
@@ -10,14 +8,12 @@ export const Header = ({ isAuthenticated }) => {
     }
   };
 
-
-
   return (
     <header className="fixed top-0 w-full bg-white z-10">
       <div className="container max-w-[80vw] mx-auto">
         <div className="flex flex-col mx-auto">
           <div className="relative flex flex-wrap items-center justify-between w-full bg-white group py-7 shrink-0">
-          <a href={isAuthenticated ? "#" : "/"}>
+            <a href={isAuthenticated ? "#" : "/"}>
               <h3 className="font-bold text-xl">JobGenie</h3>
             </a>
             <div className="items-center justify-between hidden gap-12 text-black md:flex">
@@ -64,7 +60,7 @@ export const Header = ({ isAuthenticated }) => {
                   </a>
                 </>
               )}
-                {isAuthenticated && (
+              {isAuthenticated && (
                 <>
                   <a
                     href="#"
@@ -77,6 +73,11 @@ export const Header = ({ isAuthenticated }) => {
                     className="flex items-center px-4 py-2 text-sm font-bold rounded-xl bg-purple-blue-100 text-purple-blue-600 hover:bg-purple-blue-600 hover:text-gray-400 transition duration-300"
                   >
                     Log out
+                  </a>
+                  <a href="/create-job">
+                    <button className="px-4 py-2 bg-blue-500 text-white text-xs font-semibold rounded hover:bg-blue-600 transition duration-300">
+                      Create Job
+                    </button>
                   </a>
                 </>
               )}
@@ -123,10 +124,7 @@ export const Header = ({ isAuthenticated }) => {
               {/* Conditionally render login and sign up based on authentication status */}
               {!isAuthenticated && (
                 <>
-                  <button
-                    
-                    className="flex items-center text-sm font-normal text-black"
-                  >
+                  <button className="flex items-center text-sm font-normal text-black">
                     Log In
                   </button>
                   <button className="flex items-center px-4 py-2 text-sm font-bold rounded-xl bg-purple-blue-100 text-purple-blue-600 hover:bg-purple-blue-600 hover:text-white transition duration-300">
@@ -141,4 +139,3 @@ export const Header = ({ isAuthenticated }) => {
     </header>
   );
 };
-
