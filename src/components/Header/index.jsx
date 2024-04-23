@@ -1,6 +1,8 @@
 import React from "react";
 
-export const Header = () => {
+export const Header = ({ isAuthenticated }) => {
+
+
   const toggleMenu = () => {
     const group = document.querySelector(".group");
     if (group) {
@@ -8,12 +10,14 @@ export const Header = () => {
     }
   };
 
+
+
   return (
     <header className="fixed top-0 w-full bg-white z-10">
       <div className="container max-w-[80vw] mx-auto">
         <div className="flex flex-col mx-auto">
           <div className="relative flex flex-wrap items-center justify-between w-full bg-white group py-7 shrink-0">
-            <a href={"/"}>
+          <a href={isAuthenticated ? "#" : "/"}>
               <h3 className="font-bold text-xl">JobGenie</h3>
             </a>
             <div className="items-center justify-between hidden gap-12 text-black md:flex">
@@ -43,18 +47,39 @@ export const Header = () => {
               </a>
             </div>
             <div className="items-center hidden gap-8 md:flex">
-              <a
-                href="/login"
-                className="flex items-center text-sm font-normal text-gray-800 hover:text-gray-900 transition duration-300"
-              >
-                Log In
-              </a>
-              <a
-                href="/sign-up"
-                className="flex items-center px-4 py-2 text-sm font-bold rounded-xl bg-purple-blue-100 text-purple-blue-600 hover:bg-purple-blue-600 hover:text-gray-400 transition duration-300"
-              >
-                Sign Up
-              </a>
+              {/* Conditionally render login and sign up based on authentication status */}
+              {!isAuthenticated && (
+                <>
+                  <a
+                    href="/login"
+                    className="flex items-center text-sm font-normal text-gray-800 hover:text-gray-900 transition duration-300"
+                  >
+                    Log In
+                  </a>
+                  <a
+                    href="/sign-up"
+                    className="flex items-center px-4 py-2 text-sm font-bold rounded-xl bg-purple-blue-100 text-purple-blue-600 hover:bg-purple-blue-600 hover:text-gray-400 transition duration-300"
+                  >
+                    Sign Up
+                  </a>
+                </>
+              )}
+                {isAuthenticated && (
+                <>
+                  <a
+                    href="#"
+                    className="flex items-center text-sm font-normal text-gray-800 hover:text-gray-900 transition duration-300"
+                  >
+                    Profile
+                  </a>
+                  <a
+                    href="/login"
+                    className="flex items-center px-4 py-2 text-sm font-bold rounded-xl bg-purple-blue-100 text-purple-blue-600 hover:bg-purple-blue-600 hover:text-gray-400 transition duration-300"
+                  >
+                    Log out
+                  </a>
+                </>
+              )}
             </div>
             <button onClick={toggleMenu} className="flex md:hidden">
               <svg
@@ -95,12 +120,20 @@ export const Header = () => {
               >
                 Company
               </a>
-              <button className="flex items-center text-sm font-normal text-black">
-                Log In
-              </button>
-              <button className="flex items-center px-4 py-2 text-sm font-bold rounded-xl bg-purple-blue-100 text-purple-blue-600 hover:bg-purple-blue-600 hover:text-white transition duration-300">
-                Sign Up
-              </button>
+              {/* Conditionally render login and sign up based on authentication status */}
+              {!isAuthenticated && (
+                <>
+                  <button
+                    
+                    className="flex items-center text-sm font-normal text-black"
+                  >
+                    Log In
+                  </button>
+                  <button className="flex items-center px-4 py-2 text-sm font-bold rounded-xl bg-purple-blue-100 text-purple-blue-600 hover:bg-purple-blue-600 hover:text-white transition duration-300">
+                    Sign Up
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -108,3 +141,4 @@ export const Header = () => {
     </header>
   );
 };
+

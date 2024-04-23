@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import axios from 'axios';
 
 export const SignUp = () => {
   const [email, setEmail] = useState("");
   const [fullName, setFullName] = useState("");
   const [selectedOption, setSelectedOption] = useState("placeholder");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -22,9 +25,30 @@ export const SignUp = () => {
     setSelectedOption(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here
+
+    // Validation: Check if selectedOption is not placeholder
+    if (selectedOption === "placeholder") {
+      setError("Please select an option");
+      return;
+    } else {
+      setError("");
+    }
+
+    try {
+      const response = await axios.post('http://localhost:3000/sign-up', {
+        email,
+        fullName,
+        password,
+        selectedOption
+      });
+      // If successful, set the message state to display the success message
+      setMessage(response.data);
+    } catch (error) {
+      // If there's an error, set the error state to display the error message
+      setError("Error signing up. Please try again later.");
+    }
   };
 
   return (
@@ -36,7 +60,18 @@ export const SignUp = () => {
           </h2>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+          {/* Error message */}
+          {error && (
+            <div className="text-red-500 text-sm text-center">{error}</div>
+          )}
+          {/* Success message */}
+          {message && (
+            <div className="text-green-500 text-sm text-center">{message}</div>
+          )}
+
           <div className="rounded-md shadow-sm -space-y-px flex flex-col gap-4">
+            {/* Other input fields */}
+            {/* Full Name */}
             <div>
               <label htmlFor="name" className="sr-only">
                 Full Name
@@ -54,6 +89,7 @@ export const SignUp = () => {
               />
             </div>
 
+            {/* Email */}
             <div>
               <label htmlFor="email-address" className="sr-only">
                 Email address
@@ -71,6 +107,7 @@ export const SignUp = () => {
               />
             </div>
 
+            {/* Password */}
             <div>
               <label htmlFor="password" className="sr-only">
                 Password
@@ -88,6 +125,7 @@ export const SignUp = () => {
               />
             </div>
 
+            {/* Option Select */}
             <div className="relative mt-4">
               <select
                 id="option"
@@ -120,6 +158,7 @@ export const SignUp = () => {
             </div>
           </div>
 
+          {/* Submit Button */}
           <div>
             <button
               type="submit"
@@ -144,6 +183,7 @@ export const SignUp = () => {
             </button>
           </div>
 
+          {/* Link to Login */}
           <div className="text-sm">
             <a
               href="/login"
