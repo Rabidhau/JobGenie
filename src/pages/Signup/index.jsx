@@ -1,5 +1,5 @@
+import axios from "axios";
 import React, { useState } from "react";
-import axios from 'axios';
 
 export const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -37,11 +37,11 @@ export const SignUp = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:3000/sign-up', {
+      const response = await axios.post("http://localhost:3000/sign-up", {
         email,
         fullName,
         password,
-        selectedOption
+        selectedOption,
       });
       // If successful, set the message state to display the success message
       setMessage(response.data);
@@ -179,7 +179,7 @@ export const SignUp = () => {
                   />
                 </svg>
               </span>
-              Sign in
+              Sign Up
             </button>
           </div>
 

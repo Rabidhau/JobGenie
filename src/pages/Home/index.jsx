@@ -1,3 +1,5 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Accordion, JobCard } from "../../components";
 
 const items = [
@@ -24,6 +26,19 @@ const items = [
 ];
 
 export const Home = () => {
+  const [jobList, setJobList] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/show-all-jobs")
+      .then(function (response) {
+        setJobList(response?.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
+
   return (
     <main className="bg-gray-900 pt-40 pb-20">
       <div className="container mx-auto px-4">
@@ -57,14 +72,9 @@ export const Home = () => {
           </p>
 
           <div className="grid grid-cols-3 gap-5">
-            <JobCard />
-            <JobCard />
-            <JobCard />
-            <JobCard />
-            <JobCard />
-            <JobCard />
-            <JobCard />
-            <JobCard />
+            {jobList.map((list) => (
+              <JobCard props={list} key={list.id} />
+            ))}
           </div>
         </section>
 
@@ -74,51 +84,51 @@ export const Home = () => {
           </h1>
 
           <div className="grid grid-cols-3 gap-x-10">
-            <div class="flex flex-col items-center bg-white rounded-lg overflow-hidden shadow-md">
+            <div className="flex flex-col items-center bg-white rounded-lg overflow-hidden shadow-md">
               <img
-                class=""
+                className=""
                 src="https://internsathi.com/posting.svg"
                 alt="Image"
               />
-              <div class="px-6 py-4">
-                <div class="font-bold text-2xl mb-2 text-black text-center">
+              <div className="px-6 py-4">
+                <div className="font-bold text-2xl mb-2 text-black text-center">
                   Title
                 </div>
-                <p class="text-gray-800 text-base text-center">
+                <p className="text-gray-800 text-base text-center">
                   Description lorem ipsum dolor sit amet, consectetur adipiscing
                   elit.
                 </p>
               </div>
             </div>
 
-            <div class="flex flex-col items-center bg-white rounded-lg overflow-hidden shadow-md">
+            <div className="flex flex-col items-center bg-white rounded-lg overflow-hidden shadow-md">
               <img
-                class=""
+                className=""
                 src="https://internsathi.com/hire-the-best.svg"
                 alt="Image"
               />
-              <div class="px-6 py-4">
-                <div class="font-bold text-2xl mb-2 text-black text-center">
+              <div className="px-6 py-4">
+                <div className="font-bold text-2xl mb-2 text-black text-center">
                   Title
                 </div>
-                <p class="text-gray-800 text-base text-center">
+                <p className="text-gray-800 text-base text-center">
                   Description lorem ipsum dolor sit amet, consectetur adipiscing
                   elit.
                 </p>
               </div>
             </div>
 
-            <div class="flex flex-col items-center bg-white rounded-lg overflow-hidden shadow-md">
+            <div className="flex flex-col items-center bg-white rounded-lg overflow-hidden shadow-md">
               <img
-                class=""
+                className=""
                 src="https://internsathi.com/all-types-internship.svg"
                 alt="Image"
               />
-              <div class="px-6 py-4">
-                <div class="font-bold text-2xl mb-2 text-black text-center">
+              <div className="px-6 py-4">
+                <div className="font-bold text-2xl mb-2 text-black text-center">
                   Title
                 </div>
-                <p class="text-gray-800 text-base text-center">
+                <p className="text-gray-800 text-base text-center">
                   Description lorem ipsum dolor sit amet, consectetur adipiscing
                   elit.
                 </p>
@@ -129,9 +139,7 @@ export const Home = () => {
 
         <section>
           <h1 className="text-4xl md:text-5xl lg:text-4xl font-bold text-white text-center leading-tight mb-8">
-            <h1 className="text-4xl md:text-5xl lg:text-4xl font-bold text-white text-center leading-tight mb-8">
-              Frequently Asked Question
-            </h1>
+            Frequently Asked Question
           </h1>
 
           <Accordion items={items} />
