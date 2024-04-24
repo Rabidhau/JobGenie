@@ -5,11 +5,13 @@ import axios from 'axios';
 export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [message, setMessage] = useState(''); // Add a state for the message
+  const [errorMessage, setErrorMessage] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); // Set loading state when form is submitted
 
     try {
       const response = await axios.post('http://localhost:3000/login', {
@@ -17,28 +19,28 @@ export const Login = () => {
         password
       });
 
-      console.log(response.data); // Log the response to inspect
-
-      // If login successful, navigate to the desired route
-      if (response.status === 200) {
-        navigate('/authentication'); // Navigate to the desired route
+      // Check for success based on response data
+      if (response.data.success) {
+        navigate('/authentication'); // Redirect upon successful login
       } else {
-        setMessage('Invalid credentials. Please try again.'); // Set the error message
+        setErrorMessage('Invalid credentials. Please try again.');
       }
     } catch (error) {
-      console.error(error);
-      setMessage('Error signing in. Please try again later.'); // Set the error message
+      // Handle network or server errors
+      setErrorMessage(error.response.data);
     }
+
+    setLoading(false); // Reset loading state after request completes
   };
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
-    setMessage(''); // Clear the message when the email input changes
+    setErrorMessage(''); // Clear error message when email input changes
   };
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
-    setMessage(''); // Clear the message when the password input changes
+    setErrorMessage(''); // Clear error message when password input changes
   };
 
   return (
@@ -49,6 +51,9 @@ export const Login = () => {
             Sign in to your account
           </h2>
         </div>
+        {errorMessage && (
+          <div className="text-red-500 text-sm">{errorMessage}</div>
+        )}
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="rounded-md shadow-sm -space-y-px flex flex-col gap-4">
             <div>
@@ -83,16 +88,14 @@ export const Login = () => {
                 onChange={handlePasswordChange}
               />
             </div>
-            {message && (
-              <div className="text-red-500 text-sm">{message}</div>
-            )}
           </div>
           <div>
             <button
               type="submit"
+              disabled={loading} // Disable button during loading state
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
-              Sign in
+              {loading ? 'Signing in...' : 'Sign in'}
             </button>
           </div>
           <div className="text-sm text-center">

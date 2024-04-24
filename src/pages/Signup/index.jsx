@@ -47,7 +47,7 @@ export const SignUp = () => {
       setMessage(response.data);
     } catch (error) {
       // If there's an error, set the error state to display the error message
-      setError("Error signing up. Please try again later.");
+      setError(error.response.data);
     }
   };
 
