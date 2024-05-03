@@ -24,10 +24,10 @@ function App() {
       path: "/",
       element: <Home />,
     },
-    {
-      path: "/About", 
-      element: <About />,
-    },
+    // {
+    //   path: "/About", 
+    //   element: <About />,
+    // },
     {
       path: "/login",
       element: <Login />,

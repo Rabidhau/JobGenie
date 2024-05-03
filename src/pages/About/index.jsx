@@ -36,23 +36,27 @@ export const About = () => {
           Meet some of the key members of our team:
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div className="bg-gray-100 p-4 rounded-lg">
-            <h3 className="text-xl font-semibold mb-2">John Doe</h3>
-            <p className="text-lg">Co-founder & CEO</p>
-            <p className="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          </div>
-          <div className="bg-gray-100 p-4 rounded-lg">
-            <h3 className="text-xl font-semibold mb-2">Jane Smith</h3>
-            <p className="text-lg">Head of Product</p>
-            <p className="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          </div>
-          <div className="bg-gray-100 p-4 rounded-lg">
-            <h3 className="text-xl font-semibold mb-2">Michael Johnson</h3>
-            <p className="text-lg">Lead Developer</p>
-            <p className="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          </div>
+  <div className="bg-gray-100 p-4 rounded-lg flex flex-col items-center"> {/* Center content vertically */}
+    <img src="" alt="John Doe" className="mb-2 rounded-full w-20 h-20" /> {/* Add photo */}
+    <h3 className="text-xl font-semibold mb-2">John Doe</h3>
+    <p className="text-lg">Co-founder & CEO</p>
+    <p className="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+  </div>
+  <div className="bg-gray-100 p-4 rounded-lg flex flex-col items-center"> {/* Center content vertically */}
+    <img src="jane-smith.jpg" alt="Jane Smith" className="mb-2 rounded-full w-20 h-20" /> {/* Add photo */}
+    <h3 className="text-xl font-semibold mb-2">Jane Smith</h3>
+    <p className="text-lg">Head of Product</p>
+    <p className="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+  </div>
+  <div className="bg-gray-100 p-4 rounded-lg flex flex-col items-center"> {/* Center content vertically */}
+    <img src="michael-johnson.jpg" alt="Michael Johnson" className="mb-2 rounded-full w-20 h-20" /> {/* Add photo */}
+    <h3 className="text-xl font-semibold mb-2">Michael Johnson</h3>
+    <p className="text-lg">Lead Developer</p>
+    <p className="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+  </div>
+</div>
+
         </div>
       </div>
-    </div>
   );
 };
