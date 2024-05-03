@@ -9,7 +9,7 @@ import "./App.css";
 import { MantineProvider } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
 import { Footer, Header } from "./components";
-import { Auth, CreateJob, Home, Login, SignUp, About } from "./pages";
+import { Auth, CreateJob, Home, Login, SignUp } from "./pages";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -23,10 +23,6 @@ function App() {
     {
       path: "/",
       element: <Home />,
-    },
-    {
-      path: "/About", 
-      element: <About />,
     },
     {
       path: "/login",
