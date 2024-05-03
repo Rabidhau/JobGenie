@@ -1,5 +1,5 @@
 import React from "react";
-
+import {Link} from "react-router-dom"
 export const Header = ({ isAuthenticated }) => {
   const toggleMenu = () => {
     const group = document.querySelector(".group");
@@ -24,8 +24,8 @@ export const Header = ({ isAuthenticated }) => {
                 Home
               </a>
               <a
-                className="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900"
-                href="javascript:void(0)"
+               className="flex items-center text-sm font-normal text-gray-800 hover:text-gray-900 transition duration-300"
+                href="/About"
               >
                 About
               </a>

@@ -9,7 +9,8 @@ import "./App.css";
 import { MantineProvider } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
 import { Footer, Header } from "./components";
-import { Auth, CreateJob, Home, Login, SignUp } from "./pages";
+import { Auth, CreateJob, Home, Login, SignUp, About } from "./pages";
+
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -17,10 +18,15 @@ function App() {
   const handleSignInSuccess = () => {
     setIsAuthenticated(true);
   };
+
   const router = createBrowserRouter([
     {
       path: "/",
       element: <Home />,
+    },
+    {
+      path: "/About", 
+      element: <About />,
     },
     {
       path: "/login",
@@ -45,7 +51,7 @@ function App() {
       <MantineProvider>
         <Notifications position="top-right" />
         <Header isAuthenticated={isAuthenticated} />
-        <RouterProvider router={router} />
+        <RouterProvider router={router} /> {/* Moved this inside MantineProvider */}
         <Footer />
       </MantineProvider>
     </>
