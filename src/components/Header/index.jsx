@@ -8,6 +8,12 @@ export const Header = ({ isAuthenticated }) => {
     }
   };
 
+  const handleLogout = () => {
+    // Perform logout actions
+    localStorage.setItem("isAuthenticated", false);
+ window.location.href = "/login";
+  };
+
   return (
     <header className="fixed top-0 w-full bg-white z-10">
       <div className="container max-w-[80vw] mx-auto">
@@ -19,7 +25,9 @@ export const Header = ({ isAuthenticated }) => {
             <div className="items-center justify-between hidden gap-12 text-black md:flex">
               <a
                 className="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900"
-                href={isAuthenticated ? "#" : "/"}
+
+                href="/"
+
               >
                 Home
               </a>
@@ -68,7 +76,7 @@ export const Header = ({ isAuthenticated }) => {
                     Profile
                   </a>
                   <a
-                    href="/login"
+                    onClick={handleLogout}
                     className="flex items-center px-4 py-2 text-sm font-bold rounded-xl bg-purple-blue-100 text-purple-blue-600 hover:bg-purple-blue-600 hover:text-gray-400 transition duration-300"
                   >
                     Log out
