@@ -9,8 +9,8 @@ import "./App.css";
 import { MantineProvider } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
 import { Footer, Header } from "./components";
-import { Auth, CreateJob, Home, Login, SignUp,Profile} from "./pages";
 
+import { Auth, CreateJob, Home, IndividualJob, Login, SignUp, Profile } from "./pages";
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -44,7 +44,11 @@ function App() {
       path: "/user-profile",
       element: <Profile onSignInSuccess={handleSignInSuccess}/>,
     },
+    {
     
+      path: "/job/:id",
+      element: <IndividualJob />,
+    },
   ]);
 
   return (
@@ -52,7 +56,8 @@ function App() {
       <MantineProvider>
         <Notifications position="top-right" />
         <Header isAuthenticated={isAuthenticated} />
-        <RouterProvider router={router} /> {/* Moved this inside MantineProvider */}
+        <RouterProvider router={router} />{" "}
+        {/* Moved this inside MantineProvider */}
         <Footer />
       </MantineProvider>
     </>

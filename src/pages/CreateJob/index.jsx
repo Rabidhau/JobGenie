@@ -47,7 +47,7 @@ export const CreateJob = ({ onSignInSuccess }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-900 py-12 px-4 mt-10 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center bg-gray-900 py-12 px-4 mt-20 sm:px-6 lg:px-8">
       <div className="max-w-lg w-full space-y-8 b p-16 rounded-lg shadow-lg border border-gray-300 bg-gray-50">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
@@ -236,6 +236,9 @@ export const CreateJob = ({ onSignInSuccess }) => {
             </div>
 
             <div className="relative mt-4">
+              <label htmlFor="name" className="block mb-2">
+                Job Category
+              </label>
               <select
                 id="option"
                 name="option"
