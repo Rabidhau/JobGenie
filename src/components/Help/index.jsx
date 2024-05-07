@@ -98,3 +98,5 @@ The benefits of registering an account and apply via Jobejee are that you get ac
 
     );
 };
+
+export default Help;
