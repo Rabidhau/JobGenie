@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Accordion, JobCard } from "../../components";
+import { Accordion, JobCard} from "../../components";
 
 const items = [
   {

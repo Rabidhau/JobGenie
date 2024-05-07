@@ -8,7 +8,7 @@ export const Footer = () => {
               Company Name
             </h2>
             <p className="text-gray-600 text-sm">123 Street, City, Country</p>
-            <p className="text-gray-600 text-sm mt-2">info@company.com</p>
+            <p className="text-gray-600 text-sm mt-2">JobGenie@company.com</p>
             <p className="text-gray-600 text-sm mt-2">+123 456 7890</p>
           </div>
           <div>
@@ -18,7 +18,7 @@ export const Footer = () => {
             <ul>
               <li>
                 <a
-                  href="#"
+                  href="./Home"
                   className="text-gray-600 hover:text-gray-800 transition duration-300"
                 >
                   Home
@@ -26,26 +26,21 @@ export const Footer = () => {
               </li>
               <li>
                 <a
-                  href="#"
+                  href="./About"
                   className="text-gray-600 hover:text-gray-800 transition duration-300"
+              
                 >
                   About
                 </a>
               </li>
               <li>
-                <a
-                  href="#"
-                  className="text-gray-600 hover:text-gray-800 transition duration-300"
-                >
-                  Services
-                </a>
               </li>
               <li>
                 <a
-                  href="#"
+                  href="./Help"
                   className="text-gray-600 hover:text-gray-800 transition duration-300"
                 >
-                  Contact
+                  FAQ / Help
                 </a>
               </li>
             </ul>
