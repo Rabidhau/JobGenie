@@ -8,8 +8,8 @@ import "./App.css";
 
 import { MantineProvider } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
-import { Footer, Header } from "./components";
-import { Auth, CreateJob, Home, Login, SignUp, About } from "./pages";
+import { Footer, Header, Help } from "./components";
+import { Auth, CreateJob, Home, Login, SignUp, About} from "./pages";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -24,10 +24,17 @@ function App() {
       path: "/",
       element: <Home />,
     },
-    // {
-    //   path: "/About", 
-    //   element: <About />,
-    // },
+    {
+      path: "/about", 
+      element: <About />,
+    },
+    {
+      path: "/help", 
+      element: <Help/>,
+    },
+    
+
+    
     {
       path: "/login",
       element: <Login />,
@@ -56,6 +63,7 @@ function App() {
       </MantineProvider>
     </>
   );
+  
 }
 
 export default App;
