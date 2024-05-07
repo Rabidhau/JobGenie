@@ -8,7 +8,7 @@ import "./App.css";
 
 import { MantineProvider } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
-import { Footer, Header } from "./components";
+import { Footer, Header,Help } from "./components";
 
 
 import { Auth, CreateJob, Home, IndividualJob, Login, SignUp, Profile,About } from "./pages";
@@ -39,6 +39,10 @@ function App() {
     {
       path: "/about", 
       element: <About />,
+    },
+    {
+      path: "/help", 
+      element: <Help />,
     },
     
     {
