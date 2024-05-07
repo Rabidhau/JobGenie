@@ -1,7 +1,10 @@
 import dayjs from "dayjs";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export const JobCard = ({ props }) => {
+  const navigate = useNavigate("");
+
   return (
     <div className="mx-auto w-full bg-white shadow-md rounded-lg overflow-hidden hover:rounded-xl hover:shadow-slate-300 transition-all">
       <div className="px-4 py-6">
@@ -25,7 +28,10 @@ export const JobCard = ({ props }) => {
             <p className="text-sm text-gray-700">
               Last Date: {dayjs(props.submitBy).format("DD, MMM, YYYY")}
             </p>
-            <button className="px-4 py-2 bg-blue-500 text-white text-xs font-semibold rounded hover:bg-blue-600 transition duration-300">
+            <button
+              className="px-4 py-2 bg-blue-500 text-white text-xs font-semibold rounded hover:bg-blue-600 transition duration-300"
+              onClick={() => navigate("job/" + props.id)}
+            >
               Read More
             </button>
           </div>
