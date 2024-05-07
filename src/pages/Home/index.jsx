@@ -27,12 +27,13 @@ const items = [
 
 export const Home = () => {
   const [jobList, setJobList] = useState([]);
-
+  
   useEffect(() => {
     axios
       .get("http://localhost:3000/show-all-jobs")
       .then(function (response) {
         setJobList(response?.data);
+        
       })
       .catch(function (error) {
         console.log(error);
