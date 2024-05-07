@@ -19,8 +19,14 @@ export const Login = () => {
 
       console.log(response.data); // Log the response to inspect
 
-      // If login successful, navigate to the desired route
+      // If login successful, navigate to the desired route and store user data in local storage
       if (response.status === 200) {
+        const userData = response.data;
+        localStorage.setItem('userId', userData.userId); // Store userId in local storage
+        localStorage.setItem('userEmail', userData.email); // Store userEmail in local storage
+        localStorage.setItem('userName', userData.username); // Store userName in local storage
+        localStorage.setItem('userRole', userData.role); // Store userRole in local storage
+
         navigate('/authentication'); // Navigate to the desired route
       } else {
         setMessage('Invalid credentials. Please try again.'); // Set the error message

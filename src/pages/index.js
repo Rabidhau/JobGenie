@@ -4,3 +4,4 @@ export * from "./Home";
 export * from "./IndividualJob";
 export * from "./Login";
 export * from "./Signup";
+export * from "./Profile";
