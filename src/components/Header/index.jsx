@@ -29,12 +29,30 @@ export const Header = () => {
               >
                 About
               </a>
-              <a
-                className="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900"
-                href="javascript:void(0)"
-              >
-                Jobs
-              </a>
+              {/* Dropdown Menu for Jobs */}
+              <div className="relative group">
+                <a
+                  className="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900 cursor-pointer"
+                  onClick={toggleMenu}
+                >
+                  Jobs
+                </a>
+                <div className="absolute hidden bg-white text-black mt-2 py-2 w-full rounded-lg shadow-lg group-[.open]:block">
+                  <a
+                    className="block px-4 py-2 text-sm hover:bg-gray-200"
+                    href="javascript:void(0)"
+                  >
+                    Job Search
+                  </a>
+                  <a
+                    className="block px-4 py-2 text-sm hover:bg-gray-200"
+                    href="javascript:void(0)"
+                  >
+                    Job Listings
+                  </a>
+                </div>
+              </div>
+              {/* End Dropdown Menu */}
               <a
                 className="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900"
                 href="javascript:void(0)"
