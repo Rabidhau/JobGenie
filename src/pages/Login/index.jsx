@@ -2,49 +2,52 @@ import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-export const Login = () => {
+export const Login = ({ onSignInSuccess }) => {
+  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [message, setMessage] = useState(''); // Add a state for the message
+  const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       const response = await axios.post('http://localhost:3000/login', {
         email,
         password
       });
-
-      console.log(response.data); // Log the response to inspect
-
+  
       // If login successful, navigate to the desired route and store user data in local storage
       if (response.status === 200) {
         const userData = response.data;
-        localStorage.setItem('userId', userData.userId); // Store userId in local storage
-        localStorage.setItem('userEmail', userData.email); // Store userEmail in local storage
-        localStorage.setItem('userName', userData.username); // Store userName in local storage
-        localStorage.setItem('userRole', userData.role); // Store userRole in local storage
-
-        navigate('/authentication'); // Navigate to the desired route
+        localStorage.setItem('userId', userData.userId);
+        localStorage.setItem('userEmail', userData.email);
+        localStorage.setItem('userName', userData.username);
+        localStorage.setItem('userRole', userData.role);
+        onSignInSuccess();
+        navigate('/'); // Navigate to the desired route
       } else {
-        setMessage('Invalid credentials. Please try again.'); // Set the error message
+        setMessage('Invalid credentials. Please try again.');
       }
     } catch (error) {
       console.error(error);
-      setMessage('Error signing in. Please try again later.'); // Set the error message
+      if (error.response && error.response.status === 401) {
+        setMessage('Invalid email or password. Please try again.');
+      } else {
+        setMessage('An error occurred. Please try again later.');
+      }
     }
   };
-
+  
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
-    setMessage(''); // Clear the message when the email input changes
+    setMessage('');
   };
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
-    setMessage(''); // Clear the message when the password input changes
+    setMessage('');
   };
 
   return (

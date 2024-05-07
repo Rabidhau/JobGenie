@@ -14,6 +14,17 @@ const fetchUserData = async () => {
   }
 };
 
+const fetchJobs = async () => {
+  try {
+    const company_name = localStorage.getItem('companyName');
+    const createdJobsResponse = await axios.get(`http://localhost:3000/created-jobs/${company_name}`);
+    const appliedJobsResponse = await axios.get(`http://localhost:3000/applicants/${company_name}`);
+    return { createdJobs: createdJobsResponse.data, appliedJobs: appliedJobsResponse.data };
+  } catch (error) {
+    console.error('Error fetching jobs:', error);
+    return { createdJobs: [], appliedJobs: [] };
+  }
+};
 
 export const Profile = ({ onSignInSuccess }) => {
   onSignInSuccess();
@@ -26,6 +37,7 @@ export const Profile = ({ onSignInSuccess }) => {
     location: '',
     profileImage: '',
   });
+  const [jobsData, setJobsData] = useState({ createdJobs: [], appliedJobs: [] });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,6 +47,14 @@ export const Profile = ({ onSignInSuccess }) => {
       }
     };
     fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchJobsData = async () => {
+      const jobsData = await fetchJobs();
+      setJobsData(jobsData);
+    };
+    fetchJobsData();
   }, []);
 
   const toggleEdit = () => {
@@ -47,6 +67,11 @@ export const Profile = ({ onSignInSuccess }) => {
       ...formData,
       [name]: value,
     });
+
+    // Update the company_name in local storage when changed
+    if (name === 'company_name') {
+      localStorage.setItem('companyName', value);
+    }
   };
 
   const handleImageChange = (e) => {
@@ -85,16 +110,16 @@ export const Profile = ({ onSignInSuccess }) => {
   return (
     <div className="container mx-auto py-8 mt-20">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-      <div className="mb-4">
-  <label htmlFor="profileImage" className="block text-sm font-medium text-gray-700">Profile Image</label>
-  <input
-    type="file"
-    id="profileImage"
-    name="profileImage"
-    onChange={handleImageChange}
-    className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500"
-  />
-</div>
+        <div className="mb-4">
+          <label htmlFor="profileImage" className="block text-sm font-medium text-gray-700">Profile Image</label>
+          <input
+            type="file"
+            id="profileImage"
+            name="profileImage"
+            onChange={handleImageChange}
+            className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500"
+          />
+        </div>
         <div className="md:w-2/3 mt-4 md:mt-0">
           <h1 className="text-3xl font-bold mb-2">{formData.name}</h1>
           <p className="text-gray-600 mb-4">{`Senior Recruiter at ${formData.company_name}`}</p>
@@ -103,9 +128,9 @@ export const Profile = ({ onSignInSuccess }) => {
             <span>{formData.email}</span>
           </div>
           <div className="flex items-center mb-2">
-  <FontAwesomeIcon icon={faPhone} className="text-gray-500 mr-2" />
-  <span>{formData.phone_number}</span>
-</div>
+            <FontAwesomeIcon icon={faPhone} className="text-gray-500 mr-2" />
+            <span>{formData.phone_number}</span>
+          </div>
           <div className="flex items-center mb-2">
             <FontAwesomeIcon icon={faMapMarkerAlt} className="text-gray-500 mr-2" />
             <span>{formData.location}</span>
@@ -123,6 +148,33 @@ export const Profile = ({ onSignInSuccess }) => {
           faucibus, lectus magna consequat nibh, vel luctus eros magna in magna. Donec vel nulla
           vel risus dapibus venenatis. Nullam sit amet tortor vel risus venenatis auctor.
         </p>
+      </div>
+      {/* Jobs Section */}
+      <div className="flex mt-8 justify-center text-center">
+        {/* Jobs Created */}
+        <div className="w-1/2 mr-4">
+          <h2 className="text-2xl font-bold mb-4">Jobs Created</h2>
+          <p>Total Jobs Created: {jobsData.createdJobs.length}</p>
+          <div className="grid gap-4">
+            {jobsData.createdJobs.map((job) => (
+              <div key={job.id} className="bg-gray-100 p-4 rounded-lg">
+                {/* Render job details here */}
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* Jobs Applied */}
+        <div className="w-1/2 ml-4">
+          <h2 className="text-2xl font-bold mb-4">Jobs Applied</h2>
+          <p>Total Applicants: {jobsData.appliedJobs.length}</p>
+          <div className="grid gap-4">
+            {jobsData.appliedJobs.map((job) => (
+              <div key={job.id} className="bg-gray-100 p-4 rounded-lg">
+                {/* Render job details here */}
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Edit Modal */}

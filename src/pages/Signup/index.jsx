@@ -36,7 +36,7 @@ export const SignUp = () => {
       setTokenSent(true);
       setMessage(response.data);
     } catch (error) {
-      setError("Error sending token. Please try again.");
+      setMessage(error.response.data);
     }
   };
 
@@ -55,7 +55,7 @@ export const SignUp = () => {
       });
       setMessage(response.data);
     } catch (error) {
-      setError("Error signing up. Please try again later.");
+      setMessage(error.response.data);
     }
   };
 
