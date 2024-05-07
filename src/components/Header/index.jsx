@@ -19,7 +19,7 @@ export const Header = ({ isAuthenticated }) => {
             <div className="items-center justify-between hidden gap-12 text-black md:flex">
               <a
                 className="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900"
-                href=""
+                href={isAuthenticated ? "#" : "/"}
               >
                 Home
               </a>
@@ -43,7 +43,6 @@ export const Header = ({ isAuthenticated }) => {
               </a>
             </div>
             <div className="items-center hidden gap-8 md:flex">
-              {/* Conditionally render login and sign up based on authentication status */}
               {!isAuthenticated && (
                 <>
                   <a
