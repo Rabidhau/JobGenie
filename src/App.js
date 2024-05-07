@@ -26,7 +26,7 @@ function App() {
     },
     {
       path: "/login",
-      element: <Login />,
+      element: <Login  onSignInSuccess={handleSignInSuccess}/>,
     },
     {
       path: "/sign-up",
@@ -34,7 +34,7 @@ function App() {
     },
     {
       path: "/create-job",
-      element: <CreateJob />,
+      element: <CreateJob onSignInSuccess={handleSignInSuccess}/>,
     },
     {
       path: "/authentication",
