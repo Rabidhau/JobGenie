@@ -8,9 +8,9 @@ import "./App.css";
 
 import { MantineProvider } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
-import { Footer, Header, Help } from "./components";
-import { Auth, CreateJob, Home, Login, SignUp, About} from "./pages";
+import { Footer, Header } from "./components";
 
+import { Auth, CreateJob, Home, IndividualJob, Login, SignUp, Profile,About } from "./pages";
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -28,16 +28,10 @@ function App() {
       path: "/about", 
       element: <About />,
     },
-    {
-      path: "/help", 
-      element: <Help/>,
-    },
-    
-
     
     {
       path: "/login",
-      element: <Login />,
+      element: <Login  onSignInSuccess={handleSignInSuccess}/>,
     },
     {
       path: "/sign-up",
@@ -45,11 +39,20 @@ function App() {
     },
     {
       path: "/create-job",
-      element: <CreateJob />,
+      element: <CreateJob onSignInSuccess={handleSignInSuccess}/>,
     },
     {
       path: "/authentication",
       element: <Auth onSignInSuccess={handleSignInSuccess} />,
+    },
+    {
+      path: "/user-profile",
+      element: <Profile onSignInSuccess={handleSignInSuccess}/>,
+    },
+    {
+    
+      path: "/job/:id",
+      element: <IndividualJob />,
     },
   ]);
 
@@ -58,7 +61,8 @@ function App() {
       <MantineProvider>
         <Notifications position="top-right" />
         <Header isAuthenticated={isAuthenticated} />
-        <RouterProvider router={router} /> {/* Moved this inside MantineProvider */}
+        <RouterProvider router={router} />{" "}
+        {/* Moved this inside MantineProvider */}
         <Footer />
       </MantineProvider>
     </>

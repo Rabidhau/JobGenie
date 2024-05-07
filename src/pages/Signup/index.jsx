@@ -8,6 +8,8 @@ export const SignUp = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
+  const [verifyToken, setVerifyToken] = useState("");
+  const [tokenSent, setTokenSent] = useState(false); // Track if token has been sent
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -25,53 +27,55 @@ export const SignUp = () => {
     setSelectedOption(e.target.value);
   };
 
+  // Function to send token to user's email
+  const sendToken = async () => {
+    try {
+      const response = await axios.post("http://localhost:3000/verify-token", {
+        email,
+      });
+      setTokenSent(true);
+      setMessage(response.data);
+    } catch (error) {
+      setMessage(error.response.data);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Validation: Check if selectedOption is not placeholder
-    if (selectedOption === "placeholder") {
-      setError("Please select an option");
+    if (!tokenSent) {
       return;
-    } else {
-      setError("");
     }
-
     try {
       const response = await axios.post("http://localhost:3000/sign-up", {
         email,
         fullName,
         password,
         selectedOption,
+        verifyToken,
       });
-      // If successful, set the message state to display the success message
       setMessage(response.data);
     } catch (error) {
-      // If there's an error, set the error state to display the error message
-      setError("Error signing up. Please try again later.");
+      setMessage(error.response.data);
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900 py-12 px-4 mt-10 sm:px-6 lg:px-8">
-      <div className="max-w-lg w-full space-y-8 b p-16 rounded-lg shadow-lg border border-gray-300 bg-gray-50">
+      <div className="max-w-lg w-full space-y-8 p-16 rounded-lg shadow-lg border border-gray-300 bg-gray-50">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Create New Account
           </h2>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          {/* Error message */}
           {error && (
             <div className="text-red-500 text-sm text-center">{error}</div>
           )}
-          {/* Success message */}
           {message && (
             <div className="text-green-500 text-sm text-center">{message}</div>
           )}
 
           <div className="rounded-md shadow-sm -space-y-px flex flex-col gap-4">
-            {/* Other input fields */}
-            {/* Full Name */}
             <div>
               <label htmlFor="name" className="sr-only">
                 Full Name
@@ -79,7 +83,7 @@ export const SignUp = () => {
               <input
                 id="Full Name"
                 name="Full Name"
-                type="Full Name"
+                type="text"
                 autoComplete="Full Name"
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
@@ -89,7 +93,6 @@ export const SignUp = () => {
               />
             </div>
 
-            {/* Email */}
             <div>
               <label htmlFor="email-address" className="sr-only">
                 Email address
@@ -107,7 +110,6 @@ export const SignUp = () => {
               />
             </div>
 
-            {/* Password */}
             <div>
               <label htmlFor="password" className="sr-only">
                 Password
@@ -125,7 +127,6 @@ export const SignUp = () => {
               />
             </div>
 
-            {/* Option Select */}
             <div className="relative mt-4">
               <select
                 id="option"
@@ -140,50 +141,51 @@ export const SignUp = () => {
                 <option value="Candidate">Register as a Candidate</option>
                 <option value="Recruiter">Register as a Recruiter</option>
               </select>
-              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                <svg
-                  className="h-5 w-5"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 12a1 1 0 01-.707-.293l-4-4a1 1 0 111.414-1.414L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4A1 1 0 0110 12z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </div>
             </div>
+
+            {/* Display Send Token button only if token has not been sent */}
+            {!tokenSent && (
+              <button
+                onClick={sendToken}
+                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                Send Token
+              </button>
+            )}
+
+            {/* Display input for verification token only if token has been sent */}
+            {tokenSent && (
+              <div>
+                <label htmlFor="verify-token" className="sr-only">
+                  Verify Token
+                </label>
+                <input
+                  id="verify-token"
+                  name="verify-token"
+                  type="text"
+                  autoComplete="verify-token"
+                  required
+                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                  placeholder="Enter Token"
+                  value={verifyToken}
+                  onChange={(e) => setVerifyToken(e.target.value)}
+                />
+              </div>
+            )}
           </div>
 
-          {/* Submit Button */}
-          <div>
-            <button
-              type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            >
-              <span className="absolute left-0 inset-y-0 flex items-center pl-3">
-                <svg
-                  className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 2a8 8 0 100 16 8 8 0 000-16zM4 10a6 6 0 1112 0 6 6 0 01-12 0z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </span>
-              Sign Up
-            </button>
-          </div>
+          {/* Display Sign Up button only if token has been sent */}
+          {tokenSent && (
+            <div>
+              <button
+                type="submit"
+                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                Sign Up
+              </button>
+            </div>
+          )}
 
-          {/* Link to Login */}
           <div className="text-sm">
             <a
               href="/login"
