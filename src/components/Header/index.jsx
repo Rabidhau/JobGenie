@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from "react-router-dom"
+
 export const Header = ({ isAuthenticated }) => {
   const toggleMenu = () => {
     const group = document.querySelector(".group");
@@ -13,13 +13,13 @@ export const Header = ({ isAuthenticated }) => {
       <div className="container max-w-[80vw] mx-auto">
         <div className="flex flex-col mx-auto">
           <div className="relative flex flex-wrap items-center justify-between w-full bg-white group py-7 shrink-0">
-            <a href={isAuthenticated ? "#" : "/"}>
+            <a href={isAuthenticated ? "" : "/"}>
               <h3 className="font-bold text-xl">JobGenie</h3>
             </a>
             <div className="items-center justify-between hidden gap-12 text-black md:flex">
               <a
                 className="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900"
-                href="javascript:void(0)"
+                href=""
               >
                 Home
               </a>
@@ -31,13 +31,13 @@ export const Header = ({ isAuthenticated }) => {
               </a>
               <a
                 className="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900"
-                href="javascript:void(0)"
+                href=""
               >
                 Jobs
               </a>
               <a
                 className="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900"
-                href="javascript:void(0)"
+                href=""
               >
                 Internship
               </a>
@@ -63,7 +63,7 @@ export const Header = ({ isAuthenticated }) => {
               {isAuthenticated && (
                 <>
                   <a
-                    href="#"
+                    href="/user-profile"
                     className="flex items-center text-sm font-normal text-gray-800 hover:text-gray-900 transition duration-300"
                   >
                     Profile
@@ -99,25 +99,25 @@ export const Header = ({ isAuthenticated }) => {
             <div className="absolute flex md:hidden transition-all duration-300 ease-in-out flex-col items-start shadow-main justify-center w-full gap-3 overflow-hidden bg-white max-h-0 group-[.open]:py-4 px-4 rounded-2xl group-[.open]:max-h-64 top-full">
               <a
                 className="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900"
-                href="javascript:void(0)"
+                href=""
               >
                 Product
               </a>
               <a
                 className="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900"
-                href="javascript:void(0)"
+                href=""
               >
                 Features
               </a>
               <a
                 className="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900"
-                href="javascript:void(0)"
+                href=""
               >
                 Pricing
               </a>
               <a
                 className="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900"
-                href="javascript:void(0)"
+                href=""
               >
                 Company
               </a>

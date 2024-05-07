@@ -9,7 +9,7 @@ import "./App.css";
 import { MantineProvider } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
 import { Footer, Header } from "./components";
-import { Auth, CreateJob, Home, Login, SignUp } from "./pages";
+import { Auth, CreateJob, Home, Login, SignUp,Profile} from "./pages";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -40,6 +40,11 @@ function App() {
       path: "/authentication",
       element: <Auth onSignInSuccess={handleSignInSuccess} />,
     },
+    {
+      path: "/user-profile",
+      element: <Profile onSignInSuccess={handleSignInSuccess}/>,
+    },
+    
   ]);
 
   return (
