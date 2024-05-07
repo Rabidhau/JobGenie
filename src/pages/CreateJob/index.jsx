@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export const CreateJob = () => {
+export const CreateJob = ({ onSignInSuccess }) => {
   const [companyName, setCompanyName] = useState("");
   const [jobTitle, setJobTitle] = useState("");
   const [location, setLocation] = useState("");
@@ -38,6 +38,7 @@ export const CreateJob = () => {
         title: "Created Successfully",
         message: `${response.data} :)`,
       });
+      onSignInSuccess();
       navigate("/");
     } catch (error) {
       // If there's an error, set the error state to display the error message

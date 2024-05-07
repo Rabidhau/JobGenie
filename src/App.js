@@ -17,6 +17,7 @@ function App() {
   const handleSignInSuccess = () => {
     setIsAuthenticated(true);
   };
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -49,7 +50,8 @@ function App() {
       <MantineProvider>
         <Notifications position="top-right" />
         <Header isAuthenticated={isAuthenticated} />
-        <RouterProvider router={router} />
+        <RouterProvider router={router} />{" "}
+        {/* Moved this inside MantineProvider */}
         <Footer />
       </MantineProvider>
     </>
