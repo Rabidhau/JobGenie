@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Accordion, JobCard} from "../../components";
+import { Accordion, JobCard } from "../../components";
 
 const items = [
   {
@@ -27,18 +27,32 @@ const items = [
 
 export const Home = () => {
   const [jobList, setJobList] = useState([]);
-  
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchError, setSearchError] = useState("");
+
   useEffect(() => {
     axios
       .get("http://localhost:3000/show-all-jobs")
       .then(function (response) {
         setJobList(response?.data);
-        
       })
       .catch(function (error) {
         console.log(error);
       });
   }, []);
+
+  const handleSearch = () => {
+    setSearchError("");
+    if (searchQuery)
+      axios
+        .get("http://localhost:3000/show-all-jobs?query=" + searchQuery)
+        .then(function (response) {
+          setJobList(response?.data);
+        })
+        .catch(function (error) {
+          setSearchError("No jobs found");
+        });
+  };
 
   return (
     <main className="bg-gray-900 pt-40 pb-20">
@@ -48,7 +62,7 @@ export const Home = () => {
             Find Your Dream Job
           </h1>
           <p className="text-lg md:text-xl lg:text-2xl text-gray-300 mb-8 text-center">
-            Explore thousands of properties across the globe
+            Explore thousands of opportunities across the globe
           </p>
           <div className="max-w-md mx-auto bg-white rounded-lg overflow-hidden shadow-lg">
             <div className="flex items-center border-b border-gray-200 px-4">
@@ -56,12 +70,24 @@ export const Home = () => {
                 type="text"
                 className="w-full py-4 px-6 focus:outline-none"
                 placeholder="Enter the job title, company name..."
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleSearch();
+                  }
+                }}
               />
-              <button className="bg-gray-800 text-white px-6 py-2 hover:bg-gray-700 transition duration-300 rounded-sm">
+              <button
+                className="bg-gray-800 text-white px-6 py-2 hover:bg-gray-700 transition duration-300 rounded-sm"
+                onClick={handleSearch}
+              >
                 Search
               </button>
             </div>
           </div>
+          {searchError && (
+            <p className="text-red-500 max-w-md mx-auto mt-4">{searchError}</p>
+          )}
         </section>
 
         <section className="mb-20">
