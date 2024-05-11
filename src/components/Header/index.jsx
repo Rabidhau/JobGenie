@@ -30,57 +30,23 @@ export const Header = () => {
               >
                 About
               </a>
-              {/* Dropdown Menu for Jobs */}
-              {/* <div className="relative group">
-                <a
-                  className="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900 cursor-pointer"
-                  onMouseOver={toggleMenu}
-                >
-                  Jobs
-                </a>
-                <div className="absolute hidden absolute.group-open bg-white text-black mt-2 .px-4 py-3 w-full rounded-lg shadow-lg overflow-y-auto max-h-60">
-                  <a
-                    className="block px-4 py-2 text-sm hover:bg-gray-200"
-                    href="javascript:void(0)"
-                  >
-                    Hospitality (2)
-                    Front Desk (2)
-                    Administration (2)
-                    Computer/Tech (1)
-                    Health/Medical/Pharmaceuticals (1)
-                    
-                  </a>
-                </div>
-              </div> */}
-              {/* End Dropdown Menu */}
-
-              <Menu shadow="md" width={200} trigger="hover" openDelay={100} closeDelay={400}>
+       <Menu shadow="md" width={200} trigger="hover" openDelay={100} closeDelay={400}>
       <Menu.Target>
-        <span className="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900 cursor-pointer">Toggle menu</span>
+        <span className="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900 cursor-pointer">Jobs</span>
       </Menu.Target>
 
       <Menu.Dropdown>
-        <Menu.Label>Application</Menu.Label>
+        <Menu.Label>Job Categories</Menu.Label>
         <Menu.Item >
-          Settings
+        Secretarial / Front Office / Data Entry (5)
         </Menu.Item>
         <Menu.Item>
-          Messages
+        Healthcare / Pharma / Biotech / Medical… (5)
         </Menu.Item>
         <Menu.Item>
-          Gallery
+        Human Resource /Org. Development (17)
         </Menu.Item>
-    
-
-        <Menu.Divider />
-
-        <Menu.Label>Danger zone</Menu.Label>
-        <Menu.Item
-         
-        >
-          Transfer my data
-        </Menu.Item>
-      
+  
       </Menu.Dropdown>
     </Menu>
               <a
