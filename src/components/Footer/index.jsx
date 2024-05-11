@@ -51,7 +51,7 @@ export const Footer = () => {
             </h3>
             <div className="flex space-x-4">
               <a
-                href="#"
+                href="https://www.linkedin.com/feed/"
                 className="text-gray-600 hover:text-gray-800 transition duration-300"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 48 48">
@@ -59,7 +59,7 @@ export const Footer = () => {
              </svg>
               </a>
               <a
-                href="#"
+                href="https://www.instagram.com/"
                 className="text-gray-600 hover:text-gray-800 transition duration-300"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 64 64">
@@ -67,7 +67,7 @@ export const Footer = () => {
                 </svg>
               </a>
               <a
-                href="#"
+                href="https://www.facebook.com/"
                 className="text-gray-600 hover:text-gray-800 transition duration-300"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 48 48">

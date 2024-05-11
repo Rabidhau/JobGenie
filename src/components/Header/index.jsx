@@ -51,9 +51,9 @@ export const Header = () => {
     </Menu>
               <a
                 className="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900"
-                href="javascript:void(0)"
+                href="./Help"
               >
-                Internship
+                Help
               </a>
             </div>
             <div className="items-center hidden gap-8 md:flex">
