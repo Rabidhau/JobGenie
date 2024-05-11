@@ -11,6 +11,7 @@ export const Header = ({ isAuthenticated }) => {
   const handleLogout = () => {
     // Perform logout actions
     localStorage.setItem("isAuthenticated", false);
+    localStorage.removeItem("aboutMe")
  window.location.href = "/login";
   };
 
