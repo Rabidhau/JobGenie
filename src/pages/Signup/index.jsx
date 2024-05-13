@@ -36,7 +36,7 @@ export const SignUp = () => {
       setTokenSent(true);
       setMessage(response.data);
     } catch (error) {
-      setMessage(error.response.data);
+      setError(error.response.data);
     }
   };
 
@@ -55,7 +55,7 @@ export const SignUp = () => {
       });
       setMessage(response.data);
     } catch (error) {
-      setMessage(error.response.data);
+      setError(error.response.data);
     }
   };
 

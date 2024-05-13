@@ -11,8 +11,8 @@ export const Header = ({ isAuthenticated }) => {
   const handleLogout = () => {
     // Perform logout actions
     localStorage.setItem("isAuthenticated", false);
-    localStorage.removeItem("aboutMe")
- window.location.href = "/login";
+    localStorage.removeItem("aboutMe");
+    window.location.href = "/login";
   };
 
   return (
@@ -20,20 +20,18 @@ export const Header = ({ isAuthenticated }) => {
       <div className="container max-w-[80vw] mx-auto">
         <div className="flex flex-col mx-auto">
           <div className="relative flex flex-wrap items-center justify-between w-full bg-white group py-7 shrink-0">
-            <a href={isAuthenticated ? "" : "/"}>
+            <a href={isAuthenticated ? "/" : "/"}>
               <h3 className="font-bold text-xl">JobGenie</h3>
             </a>
             <div className="items-center justify-between hidden gap-12 text-black md:flex">
               <a
                 className="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900"
-
                 href="/"
-
               >
                 Home
               </a>
               <a
-               className="flex items-center text-sm font-normal text-gray-800 hover:text-gray-900 transition duration-300"
+                className="flex items-center text-sm font-normal text-gray-800 hover:text-gray-900 transition duration-300"
                 href="/About"
               >
                 About
