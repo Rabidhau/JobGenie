@@ -18,8 +18,11 @@ export const Footer = () => {
             <ul>
               <li>
                 <a
+
+                  href="./"
+
                   className="text-gray-600 hover:text-gray-800 transition duration-300"
-                  href="/"
+                  
                 >
                   Home
                 </a>
