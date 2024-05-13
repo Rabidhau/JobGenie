@@ -1,7 +1,7 @@
 import React from "react";
-import { Menu, Button, Text, rem } from '@mantine/core';
+import { Menu} from '@mantine/core';
 
-export const Header = () => {
+export const Header = ({isAuthenticated}) => {
   const toggleMenu = () => {
     const group = document.querySelector(".group");
     if (group) {
@@ -63,20 +63,6 @@ export const Header = () => {
                 href="./Help"
               >
                 Help
-              </a>
-            </div>
-            <div className="items-center hidden gap-8 md:flex">
-              <a
-                href="/login"
-                className="flex items-center text-sm font-normal text-gray-800 hover:text-gray-900 transition duration-300"
-              >
-                Log In
-              </a>
-              <a
-                href="/sign-up"
-                className="flex items-center px-4 py-2 text-sm font-bold rounded-xl bg-purple-blue-100 text-purple-blue-600 hover:bg-purple-blue-600 hover:text-gray-400 transition duration-300"
-              >
-                Sign Up
               </a>
             </div>
             <div className="items-center hidden gap-8 md:flex">
