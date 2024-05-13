@@ -9,6 +9,13 @@ export const Header = () => {
     }
   };
 
+  const handleLogout = () => {
+    // Perform logout actions
+    localStorage.setItem("isAuthenticated", false);
+    localStorage.removeItem("aboutMe")
+ window.location.href = "/login";
+  };
+
   return (
     <header className="fixed top-0 w-full bg-white z-10">
       <div className="container max-w-[80vw] mx-auto">
@@ -20,7 +27,9 @@ export const Header = () => {
             <div className="items-center justify-between hidden gap-12 text-black md:flex">
               <a
                 className="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900"
+
                 href="./"
+
               >
                 Home
               </a>
@@ -69,6 +78,45 @@ export const Header = () => {
               >
                 Sign Up
               </a>
+            </div>
+            <div className="items-center hidden gap-8 md:flex">
+              {!isAuthenticated && (
+                <>
+                  <a
+                    href="/login"
+                    className="flex items-center text-sm font-normal text-gray-800 hover:text-gray-900 transition duration-300"
+                  >
+                    Log In
+                  </a>
+                  <a
+                    href="/sign-up"
+                    className="flex items-center px-4 py-2 text-sm font-bold rounded-xl bg-purple-blue-100 text-purple-blue-600 hover:bg-purple-blue-600 hover:text-gray-400 transition duration-300"
+                  >
+                    Sign Up
+                  </a>
+                </>
+              )}
+              {isAuthenticated && (
+                <>
+                  <a
+                    href="/user-profile"
+                    className="flex items-center text-sm font-normal text-gray-800 hover:text-gray-900 transition duration-300"
+                  >
+                    Profile
+                  </a>
+                  <a
+                    onClick={handleLogout}
+                    className="flex items-center px-4 py-2 text-sm font-bold rounded-xl bg-purple-blue-100 text-purple-blue-600 hover:bg-purple-blue-600 hover:text-gray-400 transition duration-300"
+                  >
+                    Log out
+                  </a>
+                  <a href="/create-job">
+                    <button className="px-4 py-2 bg-blue-500 text-white text-xs font-semibold rounded hover:bg-blue-600 transition duration-300">
+                      Create Job
+                    </button>
+                  </a>
+                </>
+              )}
             </div>
             <button onClick={toggleMenu} className="flex md:hidden">
             <a href="https://intellipaat.com/blog/what-is-job-portal/" target="_blank">
