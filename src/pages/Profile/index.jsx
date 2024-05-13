@@ -1,47 +1,18 @@
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEdit,
   faEnvelope,
   faMapMarkerAlt,
   faPhone,
 } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-
-const fetchUserData = async () => {
-  try {
-    const userId = localStorage.getItem("userId");
-    const response = await axios.get(
-      `http://localhost:3000/user-profile/${userId}`
-    );
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching user data:", error);
-    return null;
-  }
-};
-
-const fetchJobs = async () => {
-  try {
-    const company_name = localStorage.getItem("companyName");
-    const createdJobsResponse = await axios.get(
-      `http://localhost:3000/created-jobs/${company_name}`
-    );
-    const appliedJobsResponse = await axios.get(
-      `http://localhost:3000/applicants/${company_name}`
-    );
-    return {
-      createdJobs: createdJobsResponse.data,
-      appliedJobs: appliedJobsResponse.data,
-    };
-  } catch (error) {
-    console.error("Error fetching jobs:", error);
-    return { createdJobs: [], appliedJobs: [] };
-  }
-};
 
 export const Profile = ({ onSignInSuccess }) => {
-  onSignInSuccess();
+  useEffect(() => {
+    onSignInSuccess();
+  }, [onSignInSuccess]);
+
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -49,7 +20,8 @@ export const Profile = ({ onSignInSuccess }) => {
     email: "",
     phone_number: "",
     location: "",
-    profileImage: "",
+
+    aboutMe: "",
   });
   const [jobsData, setJobsData] = useState({
     createdJobs: [],
@@ -58,9 +30,14 @@ export const Profile = ({ onSignInSuccess }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const userData = await fetchUserData();
-      if (userData) {
-        setFormData(userData);
+      try {
+        const userId = localStorage.getItem("userId");
+        const response = await axios.get(
+          `http://localhost:3000/user-profile/${userId}`
+        );
+        setFormData(response.data);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
       }
     };
     fetchData();
@@ -68,12 +45,29 @@ export const Profile = ({ onSignInSuccess }) => {
 
   useEffect(() => {
     const fetchJobsData = async () => {
-      const jobsData = await fetchJobs();
-      setJobsData(jobsData);
+      try {
+        const company_name = localStorage.getItem("companyName");
+        const createdJobsResponse = await axios.get(
+          `http://localhost:3000/created-jobs/${company_name}`
+        );
+
+        const appliedJobsResponse = await axios.get(
+          `http://localhost:3000/applicants/${company_name}`
+        );
+        
+        setJobsData({
+          createdJobs: createdJobsResponse.data,
+          appliedJobs: appliedJobsResponse.data,
+        });
+      } catch (error) {
+        console.error("Error fetching jobs:", error);
+      }
     };
     fetchJobsData();
   }, []);
 
+
+  
   const toggleEdit = () => {
     setIsEditing(!isEditing);
   };
@@ -91,21 +85,33 @@ export const Profile = ({ onSignInSuccess }) => {
     }
   };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
 
-    reader.onloadend = () => {
+
+  const handleAboutMeEdit = () => {
+    // Prompt the user to input the new about me content
+    const newAboutMe = prompt("Enter your new About Me content:");
+    
+    // Check if the user entered something
+    if (newAboutMe !== null && newAboutMe !== "") {
+      // Update the state with the new about me content
       setFormData({
         ...formData,
-        profileImage: reader.result,
+        aboutMe: newAboutMe,
       });
-    };
-
-    if (file) {
-      reader.readAsDataURL(file);
+      
+      // Update local storage with the new about me content
+      const userId = localStorage.getItem("userId");
+      if (userId) {
+        const userData = JSON.parse(localStorage.getItem(userId));
+        localStorage.setItem(userId, JSON.stringify({ ...userData, aboutMe: newAboutMe }));
+      }
+      
+      // Close the edit mode
+      setIsEditing(false);
     }
   };
+  
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -118,33 +124,18 @@ export const Profile = ({ onSignInSuccess }) => {
       const updatedData = response.data;
       setFormData(updatedData);
       toggleEdit();
-
-      // Reload the page
-      window.location.reload();
+      window.location.reload(); // Reload the page
     } catch (error) {
       console.error("Error updating user data:", error);
     }
   };
 
   return (
-    <div className="container mx-auto py-8 mt-20">
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-        <div className="mb-4">
-          <label
-            htmlFor="profileImage"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Profile Image
-          </label>
-          <input
-            type="file"
-            id="profileImage"
-            name="profileImage"
-            onChange={handleImageChange}
-            className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500"
-          />
-        </div>
-        <div className="md:w-2/3 mt-4 md:mt-0">
+    <div className="container mx-auto py-8 mt-20 flex flex-col md:flex-row">
+
+
+      <div className="md:w-2/3 md:pl-8">
+        <div>
           <h1 className="text-3xl font-bold mb-2">{formData.name}</h1>
           <p className="text-gray-600 mb-4">{`Senior Recruiter at ${formData.company_name}`}</p>
           <div className="flex items-center mb-2">
@@ -170,44 +161,56 @@ export const Profile = ({ onSignInSuccess }) => {
             Edit Profile
           </button>
         </div>
-      </div>
-      <div className="mt-8">
-        <h2 className="text-2xl font-bold mb-4">About Me</h2>
-        <p className="text-gray-600">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor,
-          magna in posuere faucibus, lectus magna consequat nibh, vel luctus
-          eros magna in magna. Donec vel nulla vel risus dapibus venenatis.
-          Nullam sit amet tortor vel risus venenatis auctor.
-        </p>
-      </div>
-      {/* Jobs Section */}
-      <div className="flex mt-8 justify-center text-center">
-        {/* Jobs Created */}
-        <div className="w-1/2 mr-4">
-          <h2 className="text-2xl font-bold mb-4">Jobs Created</h2>
-          <p>Total Jobs Created: {jobsData.createdJobs.length}</p>
-          <div className="grid gap-4">
-            {jobsData.createdJobs.map((job) => (
-              <div key={job.id} className="bg-gray-100 p-4 rounded-lg">
-                {/* Render job details here */}
-              </div>
-            ))}
+        <div className="mt-8">
+  <h2 className="text-2xl font-bold mb-4">About Me</h2>
+  {isEditing ? (
+    <textarea
+      value={formData.aboutMe}
+      onChange={handleChange}
+      name="aboutMe"
+      id="aboutMe"
+      rows="4"
+      className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+    ></textarea>
+  ) : (
+    <p className="text-gray-600">{formData.aboutMe}</p>
+  )}
+</div>
+        <button
+            onClick={handleAboutMeEdit}
+            className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
+          >
+            <FontAwesomeIcon icon={faEdit} className="mr-2" />
+            Edit About Me
+          </button>
+        {/* Jobs Section */}
+        <div className="flex mt-8   w-full">
+          {/* Jobs Created */}
+          <div className="w-1/2 mr-4">
+            <h2 className="text-2xl font-bold mb-4">Jobs Created</h2>
+            <p>Total Jobs Created: {jobsData.createdJobs.length}</p>
+            <div className="grid gap-4">
+              {jobsData.createdJobs.map((job) => (
+                <div key={job.id} className="bg-gray-100 p-4 rounded-lg">
+                  {/* Render job details here */}
+                </div>
+              ))}
+            </div>
+          </div>
+          {/* Jobs Applied */}
+          <div className="w-1/2 ml-4">
+            <h2 className="text-2xl font-bold mb-4">Applicants</h2>
+            <p>Total Applicants: {jobsData.appliedJobs.length}</p>
+            <div className="grid gap-4">
+              {jobsData.appliedJobs.map((job) => (
+                <div key={job.id} className="bg-gray-100 p-4 rounded-lg">
+                  {/* Render job details here */}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-        {/* Jobs Applied */}
-        <div className="w-1/2 ml-4">
-          <h2 className="text-2xl font-bold mb-4">Jobs Applied</h2>
-          <p>Total Applicants: {jobsData.appliedJobs.length}</p>
-          <div className="grid gap-4">
-            {jobsData.appliedJobs.map((job) => (
-              <div key={job.id} className="bg-gray-100 p-4 rounded-lg">
-                {/* Render job details here */}
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
-
       {/* Edit Modal */}
       {isEditing && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-75">
@@ -290,22 +293,6 @@ export const Profile = ({ onSignInSuccess }) => {
                   id="location"
                   name="location"
                   value={formData.location}
-                  onChange={handleChange}
-                  className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500"
-                />
-              </div>
-              <div className="mb-4">
-                <label
-                  htmlFor="profileImage"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Profile Image URL
-                </label>
-                <input
-                  type="text"
-                  id="profileImage"
-                  name="profileImage"
-                  value={formData.profileImage}
                   onChange={handleChange}
                   className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500"
                 />

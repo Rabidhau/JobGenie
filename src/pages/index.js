@@ -5,5 +5,5 @@ export * from "./IndividualJob";
 export * from "./Login";
 export * from "./Signup";
 export * from "./About";
-
+export * from "./Candidate";
 export * from "./Profile";

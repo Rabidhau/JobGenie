@@ -11,7 +11,7 @@ import { Notifications } from "@mantine/notifications";
 import { Footer, Header,Help } from "./components";
 
 
-import { Auth, CreateJob, Home, IndividualJob, Login, SignUp, Profile,About } from "./pages";
+import { Auth, CreateJob, Home, IndividualJob, Login, SignUp, Profile,About, Candidate } from "./pages";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -68,6 +68,10 @@ function App() {
     {
       path: "/job/:id",
       element: <IndividualJob />,
+    },
+    {
+      path: "/candidate",
+      element: <Candidate onSignInSuccess={handleSignInSuccess}/>,
     },
   ]);
 
