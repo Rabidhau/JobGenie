@@ -33,7 +33,7 @@ export const About = () => {
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"> {/* Adjust grid gap */}
           <div className="bg-gray-100 p-6 rounded-lg flex flex-col items-center"> {/* Adjust padding */}
-            <img src="1.jpg" alt="John Doe" className="mb-4 rounded-full w-28 h-28" />
+            <img src="1.webp" alt="John Doe" className="mb-4 rounded-full w-28 h-28" />
             <h3 className="text-xl lg:text-2xl font-semibold mb-2">Kriti Tamang</h3> 
             <p className="text-lg">Co-founder & CEO</p> {/* Adjust font size */}
             <p className="text-gray-600 text-center mt-2"> 
@@ -41,7 +41,7 @@ export const About = () => {
             </p>
           </div>
           <div className="bg-gray-100 p-6 rounded-lg flex flex-col items-center"> 
-            <img src="1.jpg" alt="Jane Smith" className="mb-4 rounded-full w-28 h-28" /> 
+            <img src="1.webp" alt="Jane Smith" className="mb-4 rounded-full w-28 h-28" /> 
             <h3 className="text-xl lg:text-2xl font-semibold mb-2">Prakash Shrestha</h3> 
             <p className="text-lg">Head of Product</p> 
             <p className="text-gray-600 text-center mt-2"> 
@@ -49,7 +49,7 @@ export const About = () => {
             </p>
           </div>
           <div className="bg-gray-100 p-6 rounded-lg flex flex-col items-center"> 
-            <img src="1.jpg" alt="Michael Johnson" className="mb-4 rounded-full w-28 h-28" /> 
+            <img src="1.webp" alt="Michael Johnson" className="mb-4 rounded-full w-28 h-28" /> 
             <h3 className="text-xl lg:text-2xl font-semibold mb-2">Ravi</h3> 
             <p className="text-lg">Lead Developer</p> 
             <p className="text-gray-600 text-center mt-2"> 

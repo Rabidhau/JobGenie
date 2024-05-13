@@ -1,6 +1,7 @@
 import React from "react";
+import { Menu, Button, Text, rem } from '@mantine/core';
 
-export const Header = ({ isAuthenticated }) => {
+export const Header = () => {
   const toggleMenu = () => {
     const group = document.querySelector(".group");
     if (group) {
@@ -20,35 +21,62 @@ export const Header = ({ isAuthenticated }) => {
       <div className="container max-w-[80vw] mx-auto">
         <div className="flex flex-col mx-auto">
           <div className="relative flex flex-wrap items-center justify-between w-full bg-white group py-7 shrink-0">
-            <a href={isAuthenticated ? "" : "/"}>
+            <a href={"/"}>
               <h3 className="font-bold text-xl">JobGenie</h3>
             </a>
             <div className="items-center justify-between hidden gap-12 text-black md:flex">
               <a
                 className="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900"
 
-                href="/"
+                href="./"
 
               >
                 Home
               </a>
               <a
-               className="flex items-center text-sm font-normal text-gray-800 hover:text-gray-900 transition duration-300"
-                href="/About"
+                className="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900"
+                href="./About"
               >
                 About
               </a>
+       <Menu shadow="md" width={200} trigger="hover" openDelay={100} closeDelay={400}>
+      <Menu.Target>
+        <span className="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900 cursor-pointer">Jobs</span>
+      </Menu.Target>
+
+      <Menu.Dropdown>
+        <Menu.Label>Job Categories</Menu.Label>
+        <Menu.Item >
+        Secretarial / Front Office / Data Entry (5)
+        </Menu.Item>
+        <Menu.Item>
+        Healthcare / Pharma / Biotech / Medical… (5)
+        </Menu.Item>
+        <Menu.Item>
+        Human Resource /Org. Development (17)
+        </Menu.Item>
+  
+      </Menu.Dropdown>
+    </Menu>
               <a
                 className="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900"
-                href=""
+                href="./Help"
               >
-                Jobs
+                Help
+              </a>
+            </div>
+            <div className="items-center hidden gap-8 md:flex">
+              <a
+                href="/login"
+                className="flex items-center text-sm font-normal text-gray-800 hover:text-gray-900 transition duration-300"
+              >
+                Log In
               </a>
               <a
-                className="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900"
-                href=""
+                href="/sign-up"
+                className="flex items-center px-4 py-2 text-sm font-bold rounded-xl bg-purple-blue-100 text-purple-blue-600 hover:bg-purple-blue-600 hover:text-gray-400 transition duration-300"
               >
-                Internship
+                Sign Up
               </a>
             </div>
             <div className="items-center hidden gap-8 md:flex">
@@ -91,6 +119,7 @@ export const Header = ({ isAuthenticated }) => {
               )}
             </div>
             <button onClick={toggleMenu} className="flex md:hidden">
+            <a href="https://intellipaat.com/blog/what-is-job-portal/" target="_blank">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -103,43 +132,39 @@ export const Header = ({ isAuthenticated }) => {
                   fill="black"
                 ></path>
               </svg>
+              </a>
             </button>
             <div className="absolute flex md:hidden transition-all duration-300 ease-in-out flex-col items-start shadow-main justify-center w-full gap-3 overflow-hidden bg-white max-h-0 group-[.open]:py-4 px-4 rounded-2xl group-[.open]:max-h-64 top-full">
               <a
                 className="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900"
-                href=""
+                href="javascript:void(0)"
               >
                 Product
               </a>
               <a
                 className="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900"
-                href=""
+                href="javascript:void(0)"
               >
                 Features
               </a>
               <a
                 className="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900"
-                href=""
+                href="javascript:void(0)"
               >
                 Pricing
               </a>
               <a
                 className="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900"
-                href=""
+                href="javascript:void(0)"
               >
                 Company
               </a>
-              {/* Conditionally render login and sign up based on authentication status */}
-              {!isAuthenticated && (
-                <>
-                  <button className="flex items-center text-sm font-normal text-black">
-                    Log In
-                  </button>
-                  <button className="flex items-center px-4 py-2 text-sm font-bold rounded-xl bg-purple-blue-100 text-purple-blue-600 hover:bg-purple-blue-600 hover:text-white transition duration-300">
-                    Sign Up
-                  </button>
-                </>
-              )}
+              <button className="flex items-center text-sm font-normal text-black">
+                Log In
+              </button>
+              <button className="flex items-center px-4 py-2 text-sm font-bold rounded-xl bg-purple-blue-100 text-purple-blue-600 hover:bg-purple-blue-600 hover:text-white transition duration-300">
+                Sign Up
+              </button>
             </div>
           </div>
         </div>
