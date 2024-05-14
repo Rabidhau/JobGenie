@@ -17,14 +17,14 @@ export const Header = ({isAuthenticated}) => {
   };
 
   return (
-    <header className="fixed top-0 w-full bg-white z-10">
-      <div className="container max-w-[80vw] mx-auto">
+    <header className="fixed top-0 mx-auto w-full bg-white z-10">
+      <div className="container mx-auto max-w-[80vw] mx-auto">
         <div className="flex flex-col mx-auto">
-          <div className="relative flex flex-wrap items-center justify-between w-full bg-white group py-7 shrink-0">
+          <div className="relative flex flex-wrap items-center mx-auto justify-between w-full bg-white group py-7 shrink-0">
             <a href={"/"}>
               <h3 className="font-bold text-xl">JobGenie</h3>
             </a>
-            <div className="items-center justify-between hidden gap-12 text-black md:flex">
+            <div className="items-center mx-auto justify-between hidden gap-12 text-black md:flex">
               <a
                 className="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900"
 
@@ -34,14 +34,14 @@ export const Header = ({isAuthenticated}) => {
                 Home
               </a>
               <a
-                className="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900"
+                className="text-sm font-normal mx-auto text-dark-grey-700 hover:text-dark-grey-900"
                 href="./About"
               >
                 About
               </a>
        <Menu shadow="md" width={200} trigger="hover" openDelay={100} closeDelay={400}>
       <Menu.Target>
-        <span className="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900 cursor-pointer">Jobs</span>
+        <span className="text-sm font-normal mx-auto text-dark-grey-700 hover:text-dark-grey-900 cursor-pointer">Jobs</span>
       </Menu.Target>
 
       <Menu.Dropdown>
