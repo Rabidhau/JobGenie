@@ -99,11 +99,13 @@ export const Header = ({ isAuthenticated }) => {
                   >
                     Log out
                   </a>
-                  <a href="/create-job">
-                    <button className="px-4 py-2 bg-blue-500 text-white text-xs font-semibold rounded hover:bg-blue-600 transition duration-300">
-                      Create Job
-                    </button>
-                  </a>
+                  {localStorage.getItem("userRole") === "Recruiter" && (
+                    <a href="/create-job">
+                      <button className="px-4 py-2 bg-blue-500 text-white text-xs font-semibold rounded hover:bg-blue-600 transition duration-300">
+                        Create Job
+                      </button>
+                    </a>
+                  )}
                 </>
               )}
             </div>

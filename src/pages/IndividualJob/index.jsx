@@ -19,7 +19,7 @@ export const IndividualJob = () => {
 
     try {
       const response = await axios.post("http://localhost:3000/apply-job", {
-        jobID: id,
+        jobId: id,
         applicantId: userId,
       });
 
@@ -38,7 +38,7 @@ export const IndividualJob = () => {
     } catch (error) {
       notifications.show({
         title: "Error Applying Job",
-        message: `Something went wrong :(`,
+        message: error?.response?.data || `Something went wrong :(`,
         color: "red",
       });
       console.error(error);
