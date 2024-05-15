@@ -35,7 +35,7 @@ export const About = () => {
           <div className="bg-gray-100 p-6 rounded-lg flex flex-col items-center"> {/* Adjust padding */}
             <img src="1.webp" alt="John Doe" className="mb-4 rounded-full w-28 h-28" />
             <h3 className="text-xl lg:text-2xl font-semibold mb-2">Kriti Tamang</h3> 
-            <p className="text-lg">Co-founder & CEO</p> {/* Adjust font size */}
+            <p className="text-lg">Developer</p> {/* Adjust font size */}
             <p className="text-gray-600 text-center mt-2"> 
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </p>
@@ -43,7 +43,7 @@ export const About = () => {
           <div className="bg-gray-100 p-6 rounded-lg flex flex-col items-center"> 
             <img src="1.webp" alt="Jane Smith" className="mb-4 rounded-full w-28 h-28" /> 
             <h3 className="text-xl lg:text-2xl font-semibold mb-2">Prakash Shrestha</h3> 
-            <p className="text-lg">Head of Product</p> 
+            <p className="text-lg">Developer</p> 
             <p className="text-gray-600 text-center mt-2"> 
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </p>

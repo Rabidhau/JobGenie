@@ -20,7 +20,7 @@ export const Profile = ({ onSignInSuccess }) => {
     email: "",
     phone_number: "",
     location: "",
-
+    
     aboutMe: "",
   });
   const [jobsData, setJobsData] = useState({
@@ -131,25 +131,23 @@ export const Profile = ({ onSignInSuccess }) => {
   };
 
   return (
-    <div className="container mx-auto py-8 mt-20 flex flex-col md:flex-row">
-
-
+    <div className="container mx-auto py-8 mt-20 flex flex-col md:flex-row items-center bg-gray-900">
       <div className="md:w-2/3 md:pl-8">
-        <div>
-          <h1 className="text-3xl font-bold mb-2">{formData.name}</h1>
-          <p className="text-gray-600 mb-4">{`Senior Recruiter at ${formData.company_name}`}</p>
-          <div className="flex items-center mb-2">
+        <div className="profile-info">
+          <h1 className="text-3xl text-white font-bold mb-2">{formData.name}</h1>
+          <p className="text-gray-600 mb-4 text-white">{`Senior Recruiter at ${formData.company_name}`}</p>
+          <div className="flex items-center text-white mb-2">
             <FontAwesomeIcon icon={faEnvelope} className="text-gray-500 mr-2" />
             <span>{formData.email}</span>
           </div>
-          <div className="flex items-center mb-2">
+          <div className="flex items-center text-white mb-2">
             <FontAwesomeIcon icon={faPhone} className="text-gray-500 mr-2" />
             <span>{formData.phone_number}</span>
           </div>
-          <div className="flex items-center mb-2">
+          <div className="flex items-center text-white mb-2">
             <FontAwesomeIcon
               icon={faMapMarkerAlt}
-              className="text-gray-500 mr-2"
+              className="text-gray-500 mr-2" 
             />
             <span>{formData.location}</span>
           </div>
@@ -162,7 +160,7 @@ export const Profile = ({ onSignInSuccess }) => {
           </button>
         </div>
         <div className="mt-8">
-  <h2 className="text-2xl font-bold mb-4">About Me</h2>
+  <h2 className="text-2xl text-white font-bold mb-4">About Me</h2>
   {isEditing ? (
     <textarea
       value={formData.aboutMe}
@@ -170,10 +168,10 @@ export const Profile = ({ onSignInSuccess }) => {
       name="aboutMe"
       id="aboutMe"
       rows="4"
-      className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+      className="w-full p-2 border text-white border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
     ></textarea>
   ) : (
-    <p className="text-gray-600">{formData.aboutMe}</p>
+    <p className="text-gray-600 text-white">{formData.aboutMe}</p>
   )}
 </div>
         <button
@@ -184,10 +182,10 @@ export const Profile = ({ onSignInSuccess }) => {
             Edit About Me
           </button>
         {/* Jobs Section */}
-        <div className="flex mt-8   w-full">
+        <div className="flex mt-8  text-white w-full">
           {/* Jobs Created */}
           <div className="w-1/2 mr-4">
-            <h2 className="text-2xl font-bold mb-4">Jobs Created</h2>
+            <h2 className="text-2xl text-white font-bold mb-4">Jobs Created</h2>
             <p>Total Jobs Created: {jobsData.createdJobs.length}</p>
             <div className="grid gap-4">
               {jobsData.createdJobs.map((job) => (
@@ -199,11 +197,11 @@ export const Profile = ({ onSignInSuccess }) => {
           </div>
           {/* Jobs Applied */}
           <div className="w-1/2 ml-4">
-            <h2 className="text-2xl font-bold mb-4">Applicants</h2>
+            <h2 className="text-2xl text-white font-bold mb-4">Applicants</h2>
             <p>Total Applicants: {jobsData.appliedJobs.length}</p>
             <div className="grid gap-4">
               {jobsData.appliedJobs.map((job) => (
-                <div key={job.id} className="bg-gray-100 p-4 rounded-lg">
+                <div key={job.id} className="bg-gray-100 text-white p-4 rounded-lg">
                   {/* Render job details here */}
                 </div>
               ))}
