@@ -17,14 +17,14 @@ export const Header = ({ isAuthenticated }) => {
   };
 
   return (
-    <header className="fixed top-0 w-full bg-white z-10">
+    <header className="fixed top-0 mx-auto w-full bg-white z-10">
       <div className="container max-w-[80vw] mx-auto">
         <div className="flex flex-col mx-auto">
           <div className="relative flex flex-wrap items-center justify-between w-full bg-white group py-7 shrink-0">
             <a href={isAuthenticated ? "/" : "/"}>
               <h3 className="font-bold text-xl">JobGenie</h3>
             </a>
-            <div className="items-center justify-between hidden gap-12 text-black md:flex">
+            <div className="items-center mx-auto justify-between hidden gap-12 text-black md:flex">
               <a
                 className="text-sm font-normal text-dark-grey-700 hover:text-dark-grey-900"
                 href="/"
