@@ -88,7 +88,11 @@ export const Header = ({ isAuthenticated }) => {
               {isAuthenticated && (
                 <>
                   <a
-                    href="/user-profile"
+                    href={
+                      localStorage.getItem("userRole") === "Recruiter"
+                        ? "/user-profile"
+                        : "/candidate"
+                    }
                     className="flex items-center text-sm font-normal text-gray-800 hover:text-gray-900 transition duration-300"
                   >
                     Profile

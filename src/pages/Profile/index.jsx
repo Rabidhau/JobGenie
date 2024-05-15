@@ -7,6 +7,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import JobsCard from "./JobsCard";
 
 export const Profile = ({ onSignInSuccess }) => {
   useEffect(() => {
@@ -126,7 +127,6 @@ export const Profile = ({ onSignInSuccess }) => {
       console.error("Error updating user data:", error);
     }
   };
-
   const [createdJobs, setCreatedJobs] = useState([]);
 
   useEffect(() => {
@@ -195,33 +195,14 @@ export const Profile = ({ onSignInSuccess }) => {
         {/* Jobs Section */}
         <div className="flex mt-8 w-full gap-16">
           {/* Jobs Created */}
-          <div className="w-1/2">
+          <div className="w-full">
             <h2 className="text-2xl font-bold mb-4">Jobs Created</h2>
             <h3 className="font-semibold">
               Total Jobs Created: {createdJobs.length}
             </h3>
-            <div className="grid grid-cols-2 gap-4 mt-4">
+            <div className="grid grid-cols-3 gap-4 mt-4">
               {createdJobs.map((job) => (
-                <div className="bg-white shadow-md rounded-lg p-6" key={job.id}>
-                  <h2 className="text-xl font-bold mb-2">{job.jobTitle}</h2>
-                  <p className="text-gray-700 mb-4">{job.jobDetails}</p>
-                  <p className="text-gray-500 mb-4">Total Applicants: {12}</p>
-                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    Read more
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
-          {/* Jobs Applied */}
-          <div className="w-1/2">
-            <h2 className="text-2xl font-bold mb-4">Applicants</h2>
-            <p>Total Applicants: {jobsData.appliedJobs.length}</p>
-            <div className="grid gap-4">
-              {jobsData.appliedJobs.map((job) => (
-                <div key={job.id} className="bg-gray-100 p-4 rounded-lg">
-                  {/* Render job details here */}
-                </div>
+                <JobsCard props={job} key={job.id} />
               ))}
             </div>
           </div>
