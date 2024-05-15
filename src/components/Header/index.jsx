@@ -88,7 +88,11 @@ export const Header = ({ isAuthenticated }) => {
               {isAuthenticated && (
                 <>
                   <a
-                    href="/user-profile"
+                    href={
+                      localStorage.getItem("userRole") === "Recruiter"
+                        ? "/user-profile"
+                        : "/candidate"
+                    }
                     className="flex items-center text-sm font-normal text-gray-800 hover:text-gray-900 transition duration-300"
                   >
                     Profile
@@ -99,11 +103,13 @@ export const Header = ({ isAuthenticated }) => {
                   >
                     Log out
                   </a>
-                  <a href="/create-job">
-                    <button className="px-4 py-2 bg-blue-500 text-white text-xs font-semibold rounded hover:bg-blue-600 transition duration-300">
-                      Create Job
-                    </button>
-                  </a>
+                  {localStorage.getItem("userRole") === "Recruiter" && (
+                    <a href="/create-job">
+                      <button className="px-4 py-2 bg-blue-500 text-white text-xs font-semibold rounded hover:bg-blue-600 transition duration-300">
+                        Create Job
+                      </button>
+                    </a>
+                  )}
                 </>
               )}
             </div>

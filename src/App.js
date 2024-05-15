@@ -1,17 +1,27 @@
 import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
 import "@mantine/notifications/styles.css";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./App.css";
 
 import { MantineProvider } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
-import { Footer, Header,Help } from "./components";
+import { Footer, Header, Help } from "./components";
 
-
-import { Auth, CreateJob, Home, IndividualJob, Login, SignUp, Profile,About, Candidate } from "./pages";
+import {
+  About,
+  AppliedCandidates,
+  Auth,
+  Candidate,
+  CreateJob,
+  Home,
+  IndividualJob,
+  Login,
+  Profile,
+  SignUp,
+} from "./pages";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -37,14 +47,14 @@ function App() {
       element: <Home onSignInSuccess={handleSignInSuccess} />,
     },
     {
-      path: "/about", 
+      path: "/about",
       element: <About />,
     },
     {
-      path: "/help", 
+      path: "/help",
       element: <Help />,
     },
-    
+
     {
       path: "/login",
       element: <Login onSignInSuccess={handleSignInSuccess} />,
@@ -71,7 +81,11 @@ function App() {
     },
     {
       path: "/candidate",
-      element: <Candidate onSignInSuccess={handleSignInSuccess}/>,
+      element: <Candidate onSignInSuccess={handleSignInSuccess} />,
+    },
+    {
+      path: "/applied-candidate/:id",
+      element: <AppliedCandidates />,
     },
   ]);
 
@@ -80,12 +94,11 @@ function App() {
       <MantineProvider>
         <Notifications position="top-right" />
         <Header isAuthenticated={isAuthenticated} />
-        <RouterProvider router={router} /> 
+        <RouterProvider router={router} />
         <Footer />
       </MantineProvider>
     </>
   );
-  
 }
 
 export default App;

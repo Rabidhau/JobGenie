@@ -19,7 +19,7 @@ export const IndividualJob = () => {
 
     try {
       const response = await axios.post("http://localhost:3000/apply-job", {
-        jobID: id,
+        jobId: id,
         applicantId: userId,
       });
 
@@ -38,7 +38,7 @@ export const IndividualJob = () => {
     } catch (error) {
       notifications.show({
         title: "Error Applying Job",
-        message: `Something went wrong :(`,
+        message: error?.response?.data || `Something went wrong :(`,
         color: "red",
       });
       console.error(error);
@@ -109,27 +109,40 @@ export const IndividualJob = () => {
                   ? "bg-gray-600 pointer-events-none"
                   : " bg-indigo-600"
               )}
-              disabled={dayjs(jobInfo.submitBy).isBefore(new Date())}
+              disabled={
+                dayjs(jobInfo.submitBy).isBefore(new Date()) ||
+                localStorage.getItem("userRole") === "Recruiter"
+              }
               onClick={handleApply}
             >
               Apply Now
             </button>
 
             {dayjs(jobInfo.submitBy).isBefore(new Date()) && (
-              <p className="text-red-500">This job is expired</p>
+              <p className="text-red-500 mt-4">This job is expired</p>
+            )}
+
+            {localStorage.getItem("userRole") === "Recruiter" && (
+              <p className="text-red-500 mt-4">
+                Only candidates can apply jobs
+              </p>
             )}
           </div>
         </div>
 
-        <h1 className="text-4xl md:text-5xl lg:text-4xl font-bold text-white leading-tight mt-12 mb-8">
-          Recommended jobs
-        </h1>
+        {!localStorage.getItem("userRole") === "Recruiter" && (
+          <>
+            <h1 className="text-4xl md:text-5xl lg:text-4xl font-bold text-white leading-tight mt-12 mb-8">
+              Recommended jobs
+            </h1>
 
-        <div className="grid grid-cols-3 gap-5">
-          {jobList.slice(0, 3).map((list) => (
-            <JobCard props={list} key={list.id} />
-          ))}
-        </div>
+            <div className="grid grid-cols-3 gap-5">
+              {jobList.slice(0, 3).map((list) => (
+                <JobCard props={list} key={list.id} />
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </main>
   );
