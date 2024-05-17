@@ -1,3 +1,4 @@
+import { notifications } from "@mantine/notifications";
 import axios from "axios";
 import clsx from "clsx";
 import dayjs from "dayjs";
@@ -10,6 +11,39 @@ export const IndividualJob = () => {
   const [jobList, setJobList] = useState([]);
 
   const { id } = useParams();
+
+  const handleApply = async (e) => {
+    e.preventDefault();
+
+    const userId = localStorage.getItem("userId");
+
+    try {
+      const response = await axios.post("http://localhost:3000/apply-job", {
+        jobId: id,
+        applicantId: userId,
+      });
+
+      // If login successful, navigate to the desired route and store user data in local storage
+      if (response.status === 200) {
+        notifications.show({
+          title: "Job Applied Successfully",
+          message: `${response.data} :)`,
+        });
+      } else {
+        notifications.show({
+          title: "Error Applying Job",
+          message: `${response.data} :(`,
+        });
+      }
+    } catch (error) {
+      notifications.show({
+        title: "Error Applying Job",
+        message: error?.response?.data || `Something went wrong :(`,
+        color: "red",
+      });
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
     axios
@@ -70,30 +104,45 @@ export const IndividualJob = () => {
 
             <button
               className={clsx(
-                "group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500",
-                dayjs(jobInfo.submitBy).isBefore(new Date()) &&
-                  "bg-gray-600 pointer-events-none"
+                "group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500",
+                dayjs(jobInfo.submitBy).isBefore(new Date())
+                  ? "bg-gray-600 pointer-events-none"
+                  : " bg-indigo-600"
               )}
-              disabled={dayjs(jobInfo.submitBy).isBefore(new Date())}
+              disabled={
+                dayjs(jobInfo.submitBy).isBefore(new Date()) ||
+                localStorage.getItem("userRole") === "Recruiter"
+              }
+              onClick={handleApply}
             >
               Apply Now
             </button>
 
             {dayjs(jobInfo.submitBy).isBefore(new Date()) && (
-              <p className="text-red-500">This job is expired</p>
+              <p className="text-red-500 mt-4">This job is expired</p>
+            )}
+
+            {localStorage.getItem("userRole") === "Recruiter" && (
+              <p className="text-red-500 mt-4">
+                Only candidates can apply jobs
+              </p>
             )}
           </div>
         </div>
 
-        <h1 className="text-4xl md:text-5xl lg:text-4xl font-bold text-white leading-tight mt-12 mb-8">
-          Recommended jobs
-        </h1>
+        {!localStorage.getItem("userRole") === "Recruiter" && (
+          <>
+            <h1 className="text-4xl md:text-5xl lg:text-4xl font-bold text-white leading-tight mt-12 mb-8">
+              Recommended jobs
+            </h1>
 
-        <div className="grid grid-cols-3 gap-5">
-          {jobList.slice(0, 3).map((list) => (
-            <JobCard props={list} key={list.id} />
-          ))}
-        </div>
+            <div className="grid grid-cols-3 gap-5">
+              {jobList.slice(0, 3).map((list) => (
+                <JobCard props={list} key={list.id} />
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </main>
   );

@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEdit,
   faEnvelope,
   faMapMarkerAlt,
   faPhone,
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import JobsCard from "./JobsCard";
 
 export const Profile = ({ onSignInSuccess }) => {
   useEffect(() => {
@@ -54,7 +55,7 @@ export const Profile = ({ onSignInSuccess }) => {
         const appliedJobsResponse = await axios.get(
           `http://localhost:3000/applicants/${company_name}`
         );
-        
+
         setJobsData({
           createdJobs: createdJobsResponse.data,
           appliedJobs: appliedJobsResponse.data,
@@ -66,8 +67,6 @@ export const Profile = ({ onSignInSuccess }) => {
     fetchJobsData();
   }, []);
 
-
-  
   const toggleEdit = () => {
     setIsEditing(!isEditing);
   };
@@ -85,12 +84,10 @@ export const Profile = ({ onSignInSuccess }) => {
     }
   };
 
-
-
   const handleAboutMeEdit = () => {
     // Prompt the user to input the new about me content
     const newAboutMe = prompt("Enter your new About Me content:");
-    
+
     // Check if the user entered something
     if (newAboutMe !== null && newAboutMe !== "") {
       // Update the state with the new about me content
@@ -98,20 +95,21 @@ export const Profile = ({ onSignInSuccess }) => {
         ...formData,
         aboutMe: newAboutMe,
       });
-      
+
       // Update local storage with the new about me content
       const userId = localStorage.getItem("userId");
       if (userId) {
         const userData = JSON.parse(localStorage.getItem(userId));
-        localStorage.setItem(userId, JSON.stringify({ ...userData, aboutMe: newAboutMe }));
+        localStorage.setItem(
+          userId,
+          JSON.stringify({ ...userData, aboutMe: newAboutMe })
+        );
       }
-      
+
       // Close the edit mode
       setIsEditing(false);
     }
   };
-  
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -129,14 +127,27 @@ export const Profile = ({ onSignInSuccess }) => {
       console.error("Error updating user data:", error);
     }
   };
+  const [createdJobs, setCreatedJobs] = useState([]);
+
+  useEffect(() => {
+    if (formData?.email)
+      axios
+        .get("http://localhost:3000/created-jobs/" + formData.email)
+        .then(function (response) {
+          setCreatedJobs(response?.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+  }, [formData]);
 
   return (
-    <div className="container mx-auto py-8 mt-20 flex flex-col md:flex-row items-center bg-gray-900">
-      <div className="md:w-2/3 md:pl-8">
-        <div className="profile-info">
-          <h1 className="text-3xl text-white font-bold mb-2">{formData.name}</h1>
-          <p className="text-gray-600 mb-4 text-white">{`Senior Recruiter at ${formData.company_name}`}</p>
-          <div className="flex items-center text-white mb-2">
+    <div className="container max-w-[1300px] mx-auto py-8 mt-20 flex flex-col md:flex-row">
+      <div className="w-full md:pl-8">
+        <div>
+          <h1 className="text-3xl font-bold mb-2">{formData.name}</h1>
+          <p className="text-gray-600 mb-4">{`Senior Recruiter at ${formData.company_name}`}</p>
+          <div className="flex items-center mb-2">
             <FontAwesomeIcon icon={faEnvelope} className="text-gray-500 mr-2" />
             <span>{formData.email}</span>
           </div>
@@ -175,35 +186,23 @@ export const Profile = ({ onSignInSuccess }) => {
   )}
 </div>
         <button
-            onClick={handleAboutMeEdit}
-            className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
-          >
-            <FontAwesomeIcon icon={faEdit} className="mr-2" />
-            Edit About Me
-          </button>
+          onClick={handleAboutMeEdit}
+          className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
+        >
+          <FontAwesomeIcon icon={faEdit} className="mr-2" />
+          Edit About Me
+        </button>
         {/* Jobs Section */}
-        <div className="flex mt-8  text-white w-full">
+        <div className="flex mt-8 w-full gap-16">
           {/* Jobs Created */}
-          <div className="w-1/2 mr-4">
-            <h2 className="text-2xl text-white font-bold mb-4">Jobs Created</h2>
-            <p>Total Jobs Created: {jobsData.createdJobs.length}</p>
-            <div className="grid gap-4">
-              {jobsData.createdJobs.map((job) => (
-                <div key={job.id} className="bg-gray-100 p-4 rounded-lg">
-                  {/* Render job details here */}
-                </div>
-              ))}
-            </div>
-          </div>
-          {/* Jobs Applied */}
-          <div className="w-1/2 ml-4">
-            <h2 className="text-2xl text-white font-bold mb-4">Applicants</h2>
-            <p>Total Applicants: {jobsData.appliedJobs.length}</p>
-            <div className="grid gap-4">
-              {jobsData.appliedJobs.map((job) => (
-                <div key={job.id} className="bg-gray-100 text-white p-4 rounded-lg">
-                  {/* Render job details here */}
-                </div>
+          <div className="w-full">
+            <h2 className="text-2xl font-bold mb-4">Jobs Created</h2>
+            <h3 className="font-semibold">
+              Total Jobs Created: {createdJobs.length}
+            </h3>
+            <div className="grid grid-cols-3 gap-4 mt-4">
+              {createdJobs.map((job) => (
+                <JobsCard props={job} key={job.id} />
               ))}
             </div>
           </div>
