@@ -21,7 +21,7 @@ export const Profile = ({ onSignInSuccess }) => {
     email: "",
     phone_number: "",
     location: "",
-    
+
     aboutMe: "",
   });
   const [jobsData, setJobsData] = useState({
@@ -151,14 +151,14 @@ export const Profile = ({ onSignInSuccess }) => {
             <FontAwesomeIcon icon={faEnvelope} className="text-gray-500 mr-2" />
             <span>{formData.email}</span>
           </div>
-          <div className="flex items-center text-white mb-2">
+          <div className="flex items-center mb-2">
             <FontAwesomeIcon icon={faPhone} className="text-gray-500 mr-2" />
             <span>{formData.phone_number}</span>
           </div>
-          <div className="flex items-center text-white mb-2">
+          <div className="flex items-center mb-2">
             <FontAwesomeIcon
               icon={faMapMarkerAlt}
-              className="text-gray-500 mr-2" 
+              className="text-gray-500 mr-2"
             />
             <span>{formData.location}</span>
           </div>
@@ -171,7 +171,7 @@ export const Profile = ({ onSignInSuccess }) => {
           </button>
         </div>
         <div className="mt-8">
-  <h2 className="text-2xl text-white font-bold mb-4">About Me</h2>
+  <h2 className="text-2xl font-bold mb-4">About Me</h2>
   {isEditing ? (
     <textarea
       value={formData.aboutMe}
@@ -179,10 +179,10 @@ export const Profile = ({ onSignInSuccess }) => {
       name="aboutMe"
       id="aboutMe"
       rows="4"
-      className="w-full p-2 border text-white border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+      className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
     ></textarea>
   ) : (
-    <p className="text-gray-600 text-white">{formData.aboutMe}</p>
+    <p className="text-gray-600">{formData.aboutMe}</p>
   )}
 </div>
         <button
