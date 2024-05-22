@@ -77,10 +77,10 @@ export const AppliedCandidates = () => {
         </h1>
 
         <div className="grid grid-cols-3 gap-5">
-          {candidateID.map((id) => (
-            <Candidate props={id} key={id} jobId={id} />
-          ))}
-        </div>
+  {jobInfo && jobInfo.id && candidateID.map((id) => (
+    <Candidate props={id} key={id} jobId={jobInfo.id}/>
+  ))}
+</div>
       </div>
     </main>
   );
