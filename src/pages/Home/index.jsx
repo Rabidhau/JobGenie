@@ -93,8 +93,7 @@ export const Home = () => {
                   Title
                 </div>
                 <p class="text-gray-800 text-base text-center">
-                  Description lorem ipsum dolor sit amet, consectetur adipiscing
-                  elit.
+                Post an Internship of your open vacancies absolutely for free.
                 </p>
               </div>
             </div>
@@ -110,8 +109,7 @@ export const Home = () => {
                   Title
                 </div>
                 <p class="text-gray-800 text-base text-center">
-                  Description lorem ipsum dolor sit amet, consectetur adipiscing
-                  elit.
+                Hire from internship on multiple sectors for absolutely free.
                 </p>
               </div>
             </div>
@@ -127,8 +125,7 @@ export const Home = () => {
                   Title
                 </div>
                 <p class="text-gray-800 text-base text-center">
-                  Description lorem ipsum dolor sit amet, consectetur adipiscing
-                  elit.
+                Get the best candidate for your vacancy fulfillment.
                 </p>
               </div>
             </div>
